@@ -101,7 +101,8 @@ idk if this portion is done
 %}
 %% select time frames - echo 1
 para.Recon.FOV = 4.8; %units of decimeter for some reason
-Data.N = NUFFT.init(kx*para.Recon.FOV, ky*para.Recon.FOV, 1, [4, 4], para.Recon.matrix_size(1)*para.Recon.FOV, para.Recon.matrix_size(1)*para.Recon.FOV);
+Data.N = NUFFT.init(kx * matrix_size(1), ky * matrix_size(2), 1, [6, 6], matrix_size(1), matrix_size(1));
+%Data.N = NUFFT.init(kx*para.Recon.FOV, ky*para.Recon.FOV, 1, [4, 4], para.Recon.matrix_size(1)*para.Recon.FOV, para.Recon.matrix_size(1)*para.Recon.FOV);
 Data.N.W = kspace_info.DCF(:, 1);
 
 Data.kSpace = kspace_echo_1;

@@ -5,7 +5,7 @@ addpath /server/home/ncan/ismrmrd
 addpath ./matlab/
 
 %% load raw data and save recon file directories
-para.parent_dir = '../data/';
+para.parent_dir = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk';
 para.dir.subj = 'sub015';
 para.dir.task = '2drt_01_vcv1_r1';
 para.dir.raw_file = fullfile(para.parent_dir, para.dir.subj, 'raw', sprintf('%s_%s_raw.h5', para.dir.subj, para.dir.task));

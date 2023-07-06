@@ -4,4 +4,4 @@ clear all; close all; clc;
 addpath /server/home/ncan/ismrmrd
 addpath ./matlab/
 
-%% load raw data and save recon file directories
+%% 

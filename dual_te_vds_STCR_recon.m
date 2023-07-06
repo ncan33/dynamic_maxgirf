@@ -12,7 +12,7 @@ end
 all_dat     = dir('/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat');
 nfile       = length(all_dat);
 % naverage    = 1;
-narm_frame  = 5;
+narm_frame  = 10;
 % nprep       = 5;
 ifsave      = 1;
 file_index = 1;
@@ -105,8 +105,23 @@ Data.N = NUFFT.init(kx * matrix_size(1), ky * matrix_size(2), 1, [6, 6], matrix_
 %Data.N = NUFFT.init(kx*para.Recon.FOV, ky*para.Recon.FOV, 1, [4, 4], para.Recon.matrix_size(1)*para.Recon.FOV, para.Recon.matrix_size(1)*para.Recon.FOV);
 Data.N.W = kspace_info.DCF(:, 1);
 
+first_est_1 = zeros([matrix_size, nframes, ncoil], 'single');
+first_est_2 = zeros([matrix_size, nframes, ncoil], 'single');
+for iframe = 1:nframes
+    idx_temp = view_order_echo_1(:, iframe);
+    kspace_temp = zeros([nsample, nview, 1, ncoil]);
+    kspace_temp(:, idx_temp, :, :) = kspace_echo_1(:,:, iframe,:);
+    first_est_1(:, :, iframe, :) = NUFFT.NUFFT_adj(kspace_temp, Data.N);
+
+    idx_temp = view_order_echo_2(:, iframe);
+    idx_temp = idx_temp - nview;
+    kspace_temp = zeros([nsample, nview, 1, ncoil]);
+    kspace_temp(:, idx_temp, :, :) = kspace_echo_2(:,:, iframe,:);
+    first_est_2(:, :, iframe, :) = NUFFT.NUFFT_adj(kspace_temp, Data.N);
+end
+
 Data.kSpace = kspace_echo_1;
-Data.first_est = NUFFT.NUFFT_adj(Data.kSpace, Data.N);
+Data.first_est = first_est_1;
 
 scale = max(abs(Data.first_est(:)));
 
@@ -143,7 +158,7 @@ im_echo_1 = crop_half_FOV(Image_recon, para.Recon.matrix_size);
 
 %% select time frames - echo 2
 Data.kSpace = kspace_echo_2;
-Data.first_est = NUFFT.NUFFT_adj(Data.kSpace, Data.N);
+Data.first_est = first_est_2;
 
 scale = max(abs(Data.first_est(:)));
 

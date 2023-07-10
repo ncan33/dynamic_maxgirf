@@ -12,7 +12,7 @@ end
 all_dat     = dir('/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat');
 nfile       = length(all_dat);
 % naverage    = 1;
-narm_frame  = 10;
+narm_frame  = 2;
 % nprep       = 5;
 ifsave      = 1;
 file_index = 1;
@@ -44,7 +44,7 @@ ncoil           = size(kspace, 3);
 %% split kspace
 kspace_echo_1 = kspace(:, echo_idx == 1, :);
 kspace_echo_2 = kspace(:, echo_idx == 2, :);
-clear kspace
+%clear kspace
 
 narm_total      = min(size(kspace_echo_1, 2), size(kspace_echo_2, 2));
 

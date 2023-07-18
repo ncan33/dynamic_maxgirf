@@ -16,7 +16,7 @@ all_dat     = dir('/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_ha
 nfile       = length(all_dat);
 % naverage    = 1;
 % nprep       = 5;
-narm_frame  = 2;
+narm_frame  = 5;
 ifsave      = 1;
 file_index = 1;
 
@@ -49,8 +49,8 @@ ncoil = size(kspace, 3); % number of coils
 para.Recon.narm = narm_frame; % number of spiral arms per frame
 para.Recon.time_frames = 'all'; % set to 'all' for reconstructructing all frames. specify certain range if you wish, i.e., 1:100
 
-para.weight_tTV = 10; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
-para.weight_sTV = 0; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
+para.weight_tTV = 1e-5; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
+para.weight_sTV = 1e-6; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
 
 para.setting.ifplot = 1;        % display image and cost during reconstruction
 para.setting.ifGPU = 1;         % set to 1 when you want to use GPU
@@ -136,6 +136,7 @@ Data.N.W = kspace_info.DCF(:, 1);
 
 Data.kSpace = kspace_echo_1;
 Data.first_est = NUFFT.NUFFT_adj(Data.kSpace, Data.N);
+NUFFT_im_echo_1 = Data.first_est;
 
 scale = max(abs(Data.first_est(:)));
 
@@ -154,8 +155,10 @@ im_echo_1 = crop_half_FOV(Image_recon, matrix_size_keep);
 Data.kSpace = kspace_echo_2;
 %Data.N = NUFFT.init(kx_echo_1*para.Recon.FOV, ky_echo_1*para.Recon.FOV, 1, [4, 4], para.Recon.matrix_size(1)*para.Recon.FOV, para.Recon.matrix_size(1)*para.Recon.FOV);
 Data.N = NUFFT.init(kx_echo_2*para.Recon.matrix_size(1), ky_echo_2*para.Recon.matrix_size(2), 1, [4, 4], para.Recon.matrix_size(1), para.Recon.matrix_size(1));
+Data.N.W = kspace_info.DCF(:, 1);
 
 Data.first_est = NUFFT.NUFFT_adj(Data.kSpace, Data.N);
+NUFFT_im_echo_2 = Data.first_est;
 
 scale = max(abs(Data.first_est(:)));
 
@@ -169,17 +172,18 @@ im_echo_2 = crop_half_FOV(Image_recon, matrix_size_keep);
 
 %clearvars -except im_echo_1 im_echo_2 kspace_info
 
-%{
-%%save 
-f_mag = imageMRI(sos([im_echo_1(:, :, end, :), im_echo_2(:, :, end, :)]));
-f_phase = imageMRI(angle([im_echo_1(:, :, end, 1), im_echo_2(:, :, end, 1)]));
+
+%% save 
+
+f_mag = imageMRI(abs([im_echo_1(:,:,end), im_echo_2(:,:,end)]));
+%f_phase = imageMRI(angle(im_echo_1(:,:,end), im_echo_2(:,:,end)));
+ifsave = 0;
 if ifsave
-    save_name   = sprintf('./recon_data/%s_recon.mat', all_dat(file_index).name(1:end-8));
+    save_name   = sprintf(['./recon_data/',num2str(narm_frame),'arm_',num2str(para.weight_tTV),'_tTV_',num2str(para.weight_sTV),'_sTV_','%s_recon.mat'], all_dat(file_index).name(1:end-8));
 %         figure_name = sprintf('./figure/%s_recon_naverage_%g.png', all_dat(i).name(1:end-8), naverage);
 %         saveas(f, figure_name);
-    save(save_name, 'im_echo_1', 'im_echo_2', 'kspace_info', '-v7.3');
+    save(save_name, 'im_echo_1', 'im_echo_2', 'NUFFT_im_echo_1', 'NUFFT_im_echo_2', 'kspace_info', '-v7.3');
 end
 
 toc
 
-%}

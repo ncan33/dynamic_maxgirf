@@ -16,7 +16,7 @@ all_dat     = dir('/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_ha
 nfile       = length(all_dat);
 % naverage    = 1;
 % nprep       = 5;
-narm_frame  = 5;
+narm_frame  = 2;
 ifsave      = 1;
 file_index = 1;
 

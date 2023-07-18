@@ -49,7 +49,7 @@ ncoil = size(kspace, 3); % number of coils
 para.Recon.narm = narm_frame; % number of spiral arms per frame
 para.Recon.time_frames = 'all'; % set to 'all' for reconstructructing all frames. specify certain range if you wish, i.e., 1:100
 
-para.weight_tTV = 0; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
+para.weight_tTV = 10; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
 para.weight_sTV = 0; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
 
 para.setting.ifplot = 1;        % display image and cost during reconstruction
@@ -130,7 +130,8 @@ end
 
 para.Recon.FOV = fov(1)/100; %units of decimeter for some reason
 
-Data.N = NUFFT.init(kx_echo_1*para.Recon.FOV, ky_echo_1*para.Recon.FOV, 1, [4, 4], para.Recon.matrix_size(1)*para.Recon.FOV, para.Recon.matrix_size(1)*para.Recon.FOV);
+%Data.N = NUFFT.init(kx_echo_1*para.Recon.FOV, ky_echo_1*para.Recon.FOV, 1, [4, 4], para.Recon.matrix_size(1)*para.Recon.FOV, para.Recon.matrix_size(1)*para.Recon.FOV);
+Data.N = NUFFT.init(kx_echo_1*para.Recon.matrix_size(1), ky_echo_1*para.Recon.matrix_size(2), 1, [4, 4], para.Recon.matrix_size(1), para.Recon.matrix_size(1));
 Data.N.W = kspace_info.DCF(:, 1);
 
 Data.kSpace = kspace_echo_1;
@@ -145,12 +146,14 @@ para.Recon.weight_tTV = scale * para.weight_tTV; % temporal regularization weigh
 para.Recon.weight_sTV = scale * para.weight_sTV; % spatial regularization weight
 
 [Image_recon, para] = STCR_conjugate_gradient(Data, para);
-Image_recon = rot90(Image_recon);
-im_echo_1 = crop_half_FOV(Image_recon, para.Recon.matrix_size);
+Image_recon = fliplr(rot90(Image_recon, -1));
+im_echo_1 = crop_half_FOV(Image_recon, matrix_size_keep);
+%im_echo_2 = crop_half_FOV(Image_recon, para.Recon.matrix_size);
 
 %% perform STCR for echo 2
 Data.kSpace = kspace_echo_2;
-Data.N = NUFFT.init(kx_echo_1*para.Recon.FOV, ky_echo_1*para.Recon.FOV, 1, [4, 4], para.Recon.matrix_size(1)*para.Recon.FOV, para.Recon.matrix_size(1)*para.Recon.FOV);
+%Data.N = NUFFT.init(kx_echo_1*para.Recon.FOV, ky_echo_1*para.Recon.FOV, 1, [4, 4], para.Recon.matrix_size(1)*para.Recon.FOV, para.Recon.matrix_size(1)*para.Recon.FOV);
+Data.N = NUFFT.init(kx_echo_2*para.Recon.matrix_size(1), ky_echo_2*para.Recon.matrix_size(2), 1, [4, 4], para.Recon.matrix_size(1), para.Recon.matrix_size(1));
 
 Data.first_est = NUFFT.NUFFT_adj(Data.kSpace, Data.N);
 
@@ -160,8 +163,9 @@ Data.sens_map = get_sens_map(Data.first_est, '2D');
 Data.first_est = sum(Data.first_est .* conj(Data.sens_map), 4);
 
 [Image_recon, para] = STCR_conjugate_gradient(Data, para);
-Image_recon = rot90(Image_recon);
-im_echo_2 = crop_half_FOV(Image_recon, para.Recon.matrix_size);
+Image_recon = fliplr(rot90(Image_recon, -1));
+im_echo_2 = crop_half_FOV(Image_recon, matrix_size_keep);
+%im_echo_2 = crop_half_FOV(Image_recon, para.Recon.matrix_size);
 
 %clearvars -except im_echo_1 im_echo_2 kspace_info
 

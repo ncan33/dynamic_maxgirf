@@ -49,8 +49,8 @@ ncoil = size(kspace, 3); % number of coils
 para.Recon.narm = narm_frame; % number of spiral arms per frame
 para.Recon.time_frames = 'all'; % set to 'all' for reconstructructing all frames. specify certain range if you wish, i.e., 1:100
 
-para.weight_tTV = 1e-5; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
-para.weight_sTV = 1e-6; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
+para.weight_tTV = 1e-2; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
+para.weight_sTV = 1e-5; % CHANGE THIS CHANGE THIS CHANGE THIS CHANGE THIS
 
 para.setting.ifplot = 1;        % display image and cost during reconstruction
 para.setting.ifGPU = 1;         % set to 1 when you want to use GPU
@@ -177,7 +177,7 @@ im_echo_2 = crop_half_FOV(Image_recon, matrix_size_keep);
 
 f_mag = imageMRI(abs([im_echo_1(:,:,end), im_echo_2(:,:,end)]));
 %f_phase = imageMRI(angle(im_echo_1(:,:,end), im_echo_2(:,:,end)));
-ifsave = 0;
+ifsave = 1;
 if ifsave
     save_name   = sprintf(['./recon_data/',num2str(narm_frame),'arm_',num2str(para.weight_tTV),'_tTV_',num2str(para.weight_sTV),'_sTV_','%s_recon.mat'], all_dat(file_index).name(1:end-8));
 %         figure_name = sprintf('./figure/%s_recon_naverage_%g.png', all_dat(i).name(1:end-8), naverage);

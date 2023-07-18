@@ -5,7 +5,7 @@
 
 %% add ismrmd and mfile path
 addpath /server/home/ncan/ismrmrd
-addpath ./matlab/
+addpath ./util/
 
 ccc %check that setup.m is run
 if ~isfolder('./recon_data')

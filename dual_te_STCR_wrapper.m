@@ -1,10 +1,11 @@
 function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
-    kspace_info, para] = dual_te_STCR_wrapper(tTV,sTV,ifGPU,path)
+    kspace_info, para] = dual_te_STCR_wrapper(narm_frame,tTV,sTV,ifGPU,path)
     % This is a wrapper function for spatiotemporally constrained reconstruction
     % on dual TE variable density spiral raw RTHawk data. It calls STCR on my
     % the data of this repository
     
     arguments
+        narm_frame
         tTV
         sTV
         ifGPU = 1;
@@ -12,7 +13,12 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     end
     
     %% add ismrmd and mfile path
-    addpath /server/home/ncan/ismrmrd
+    addpath /server/home/ncan/ismrmrd % fix this
+    addpath /server/home/ytian/mfile/ % fix this
+    addpath /server/home/ytian/mfile/functions/ % fix this
+    addpath /server/home/ytian/mfile/registrtation/ % fix this
+    addpath /server/home/ytian/mfile/quantification/ % fix this
+    addpath /server/home/ytian/mfile/vdspiral/ % fix this
     addpath ./util/
 
     ccc %check that setup.m is run
@@ -20,12 +26,11 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
         mkdir ./recon_data
     end
     
-    all_dat = path;
+    all_dat = dir(path);
     %all_dat     = dir('/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat');
     nfile       = length(all_dat);
     % naverage    = 1;
     % nprep       = 5;
-    narm_frame  = 5;
     file_index = 1;
 
     %% read data

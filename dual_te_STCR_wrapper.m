@@ -1,5 +1,6 @@
 function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
-    kspace_info, para] = dual_te_STCR_wrapper(narm_frame,tTV,sTV,ifGPU,path)
+    kspace_info, para] = dual_te_STCR_wrapper(narm_frame, tTV, sTV, ...
+    ifGPU, path)
     % This is a wrapper function for spatiotemporally constrained reconstruction
     % on dual TE variable density spiral raw RTHawk data. It calls STCR on my
     % the data of this repository

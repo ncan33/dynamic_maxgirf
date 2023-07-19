@@ -56,6 +56,8 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_low, tTV_high, ste
     play_mri_video(29, 20/narm_frame, initial_sweep)
     tTV_anchor = input('Enter the best tTV: ');
     
+    clear initial_sweep
+    
     %% sweep though anchor tTV
     
     tTV_sweep = zeros(1,3);
@@ -74,6 +76,10 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_low, tTV_high, ste
                 save(save_name, 'im_echo_1', 'im_echo_2', 'NUFFT_im_echo_1', 'NUFFT_im_echo_2', 'kspace_info', 'para', '-v7.3');
             end
         end
+    end
+    
+    for i = 1:5
+        disp('Achored sweep done! This is great!')
     end
     
     %% imtile time -- echo 1 only for simplicity

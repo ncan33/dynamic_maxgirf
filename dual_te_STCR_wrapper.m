@@ -1,6 +1,6 @@
 function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     kspace_info, para] = dual_te_STCR_wrapper(narm_frame, tTV, sTV, ...
-    ifGPU, path)
+    niter, ifsave, ifGPU, ifplot, path)
     % This is a wrapper function for spatiotemporally constrained reconstruction
     % on dual TE variable density spiral raw RTHawk data. It calls STCR on my
     % the data of this repository
@@ -9,7 +9,10 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
         narm_frame
         tTV
         sTV
+        niter
+        ifsave = 0
         ifGPU = 1
+        ifplot = 1;
         path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat'
     end
     
@@ -73,7 +76,7 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     para.Recon.epsilon = eps('single');
     para.Recon.step_size = 2;
     para.Recon.ifContinue = 0;
-    para.Recon.noi = 150; % number of iterations
+    para.Recon.noi = niter; % number of iterations
     para.Recon.type = '2D Spiral server';
     para.Recon.break = 1;
 
@@ -130,7 +133,6 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     %% save 
     f_mag = imageMRI(abs([im_echo_1(:,:,end), im_echo_2(:,:,end)]));
     %f_phase = imageMRI(angle(im_echo_1(:,:,end), im_echo_2(:,:,end)));
-    ifsave = 1;
     if ifsave
         save_name   = sprintf(['./recon_data/',num2str(narm_frame),'arm_',num2str(para.weight_tTV),'_tTV_',num2str(para.weight_sTV),'_sTV_','%s_recon.mat'], all_dat(file_index).name(1:end-8));
     %         figure_name = sprintf('./figure/%s_recon_naverage_%g.png', all_dat(i).name(1:end-8), naverage);

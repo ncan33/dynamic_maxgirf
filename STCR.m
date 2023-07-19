@@ -1,5 +1,4 @@
-function [im_echo, NUFFT_im, para] = STCR(kspace_info, kspace, ...
-    kx, ky, para)
+function [im_echo, NUFFT_im, para] = STCR(kspace_info, kspace, kx, ky, para)
     %% matrix size
     res = [kspace_info.user_ResolutionX, kspace_info.user_ResolutionY];
     fov = [kspace_info.user_FieldOfViewX, kspace_info.user_FieldOfViewY];

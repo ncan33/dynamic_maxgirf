@@ -1,0 +1,21 @@
+function md = create_fake_dicom_info(StudyNum)
+
+idx = strfind(StudyNum,'_');
+md.StudyDate = [];%datestr(clock,'yyyymmdd');
+md.StudyTime = [];%datestr(clock,'hhMMSS');
+md.ReferringPhysicianName.FamilyName = [];
+md.ReferringPhysicianName.GivenName = [];
+md.ReferringPhysicianName.NameSuffix = [];
+md.PatientName.FamilyName = StudyNum(1:idx(1)-1);
+%md.PatientName.GivenName = StudyNum(1:idx(1)-1);
+md.PatientName.GivenName = StudyNum(idx(1)+1:idx(2)-1);
+md.PatientID = [];
+md.PatientBirthDate = [];
+md.PatientSex = [];
+md.StudyID = [];
+md.SeriesDescription = StudyNum(idx(2)+1:end);
+md.SeriesInstanceUID = [];
+md.StudyInstanceUID = [];
+%md.StudyDescription = 'short-axis long-axis 4-chamber paper';
+%md.SeriesInstanceUID = '1.3.6.1.4.1.9590.100.1.2.19133610600618200029009322404183625886';
+%md.StudyInstanceUID = '1.3.6.1.4.1.9590.100.1.2.316745207939569116728492710172838218187';

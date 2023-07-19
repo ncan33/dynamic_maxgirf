@@ -9,17 +9,15 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
         narm_frame
         tTV
         sTV
-        ifGPU = 1;
+        ifGPU = 1
         path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat'
     end
     
     %% add ismrmd and mfile path
-    addpath /server/home/ncan/ismrmrd % fix this
-    addpath /server/home/ytian/mfile/ % fix this
-    addpath /server/home/ytian/mfile/functions/ % fix this
-    addpath /server/home/ytian/mfile/registrtation/ % fix this
-    addpath /server/home/ytian/mfile/quantification/ % fix this
-    addpath /server/home/ytian/mfile/vdspiral/ % fix this
+    addpath ./util/mfile/functions/
+    addpath ./util/mfile/registrtation/
+    addpath ./util/mfile/quantification/
+    addpath ./util/mfile/vdspiral/
     addpath ./util/
 
     ccc %check that setup.m is run

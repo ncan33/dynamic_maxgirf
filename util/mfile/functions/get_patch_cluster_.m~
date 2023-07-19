@@ -1,0 +1,11 @@
+function ttv = get_patch_cluster_(Image, patch_size, shift, n_cluster)
+
+nof = size(Image, 3);
+
+
+fun = @(x) reshape(kmeans(reshape(x.data, [9, nof]).', n_cluster), [1, 1, nof]);
+B = blockproc(Image, [3, 3], fun);
+
+fun2 = @(x) patch_cluster_tv(x, B);
+tic
+ttv = blockproc(Image, [3, 3], fun2);

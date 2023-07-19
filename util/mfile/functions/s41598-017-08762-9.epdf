@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dual Contrast - Magnetic Resonance Fingerprinting (DC-MRF): A Platform for Simultaneous Quantification of Multiple MRI Contrast Agents | Scientific Reports</title>
+    <link rel="canonical" href="/articles/s41598-017-08762-9">
+    <noscript>
+        <meta http-equiv="Refresh" content="0; http://www.nature.com/articles/s41598-017-08762-9.pdf">
+    </noscript>
+    
+    
+    <meta name="twitter:card" content="summary"/>
+    
+    <meta name="twitter:title" content="Dual Contrast - Magnetic Resonance Fingerprinting (DC-MRF): A Platform"/>
+    
+    <meta name="twitter:site" content="@SciReports"/>
+    
+    <meta name="twitter:description" content="Injectable Magnetic Resonance Imaging (MRI) contrast agents have been widely used to provide critical assessments of disease for both clinical and basic science imaging research studies. The scope of "/>
+    
+    <meta name="twitter:image" content="https://media.springernature.com/m685/springer-static/image/art%3A10.1038%2Fs41598-017-08762-9/MediaObjects/41598_2017_8762_Fig1_HTML.jpg"/>
+    
+    <meta name="WT.z_cc_license_type" content="cc_by"/>
+    
+    <meta name="WT.z_primary_atype" content="Research"/>
+    
+    <meta name="WT.z_subject_term" content="Biomedical engineering;Magnetic resonance imaging;Molecular imaging"/>
+    
+    <meta name="WT.z_subject_term_id" content="biomedical-engineering;magnetic-resonance-imaging;molecular-imaging"/>
+    
+    <meta name="dc.identifier" content="doi:10.1038/s41598-017-08762-9"/>
+    
+    <meta name="DOI" content="10.1038/s41598-017-08762-9"/>
+    
+    <meta name="prism.doi" content="doi:10.1038/s41598-017-08762-9"/>
+    
+    <meta name="citation_doi" content="10.1038/s41598-017-08762-9"/>
+    
+    <meta name="journal_id" content="41598"/>
+    
+    <meta name="dc.title" content="Dual Contrast - Magnetic Resonance Fingerprinting (DC-MRF): A Platform for Simultaneous Quantification of Multiple MRI Contrast Agents"/>
+    
+    <meta name="dc.description" content="Injectable Magnetic Resonance Imaging (MRI) contrast agents have been widely used to provide critical assessments of disease for both clinical and basic science imaging research studies. The scope of available MRI contrast agents has expanded over the years with the emergence of molecular imaging contrast agents specifically targeted to biological markers. Unfortunately, synergistic application of more than a single molecular contrast agent has been limited by MRI&#8217;s ability to only dynamically measure a single agent at a time. In this study, a new Dual Contrast - Magnetic Resonance Fingerprinting (DC &#8211; MRF) methodology is described that can detect and independently quantify the local concentration of multiple MRI contrast agents following simultaneous administration. This &#8220;multi-color&#8221; MRI methodology provides the opportunity to monitor multiple molecular species simultaneously and provides a practical, quantitative imaging framework for the eventual clinical translation of molecular imaging contrast agents."/>
+    
+    <meta name="dc.source" content="Scientific Reports 2017 7:1"/>
+    
+    <meta name="dc.format" content="text/html"/>
+    
+    <meta name="dc.publisher" content="Nature Publishing Group"/>
+    
+    <meta name="dc.date" content="2017-08-16"/>
+    
+    <meta name="dc.type" content="OriginalPaper"/>
+    
+    <meta name="dc.language" content="En"/>
+    
+    <meta name="dc.copyright" content="2017 The Author(s)"/>
+    
+    <meta name="dc.rightsAgent" content="permissions@nature.com"/>
+    
+    <meta name="prism.issn" content="2045-2322"/>
+    
+    <meta name="prism.publicationName" content="Scientific Reports"/>
+    
+    <meta name="prism.publicationDate" content="2017-08-16"/>
+    
+    <meta name="prism.volume" content="7"/>
+    
+    <meta name="prism.number" content="1"/>
+    
+    <meta name="prism.section" content="OriginalPaper"/>
+    
+    <meta name="prism.startingPage" content="8431"/>
+    
+    <meta name="prism.copyright" content="2017 The Author(s)"/>
+    
+    <meta name="prism.rightsAgent" content="permissions@nature.com"/>
+    
+    <meta name="prism.url" content="http://www.nature.com/articles/s41598-017-08762-9"/>
+    
+    <meta name="citation_pdf_url" content="http://www.nature.com/articles/s41598-017-08762-9.pdf"/>
+    
+    <meta name="citation_fulltext_html_url" content="http://www.nature.com/articles/s41598-017-08762-9"/>
+    
+    <meta name="citation_journal_title" content="Scientific Reports"/>
+    
+    <meta name="citation_publisher" content="Nature Publishing Group"/>
+    
+    <meta name="citation_issn" content="2045-2322"/>
+    
+    <meta name="citation_title" content="Dual Contrast - Magnetic Resonance Fingerprinting (DC-MRF): A Platform for Simultaneous Quantification of Multiple MRI Contrast Agents"/>
+    
+    <meta name="citation_volume" content="7"/>
+    
+    <meta name="citation_issue" content="1"/>
+    
+    <meta name="citation_date" content="2017/08/16"/>
+    
+    <meta name="citation_publication_date" content="2017/08/16"/>
+    
+    <meta name="citation_firstpage" content="8431"/>
+    
+    <meta name="citation_article_type" content="Article"/>
+    
+    <meta name="citation_fulltext_world_readable" content=""/>
+    
+    <meta name="dc.creator" content="Christian E. Anderson"/>
+    
+    <meta name="dc.creator" content="Shannon B. Donnola"/>
+    
+    <meta name="dc.creator" content="Yun Jiang"/>
+    
+    <meta name="dc.creator" content="Joshua Batesole"/>
+    
+    <meta name="dc.creator" content="Rebecca Darrah"/>
+    
+    <meta name="dc.creator" content="Mitchell L. Drumm"/>
+    
+    <meta name="dc.creator" content="Susann M. Brady-Kalnay"/>
+    
+    <meta name="dc.creator" content="Nicole F. Steinmetz"/>
+    
+    <meta name="dc.creator" content="Xin Yu"/>
+    
+    <meta name="dc.creator" content="Mark A. Griswold"/>
+    
+    <meta name="dc.creator" content="Chris A. Flask"/>
+    
+    <meta name="dc.subject" content="Science, Humanities and Social Sciences, multidisciplinary"/>
+    
+    <meta name="dc.subject" content="Science, multidisciplinary"/>
+    
+    <meta name="citation_author" content="Christian E. Anderson"/>
+    
+    <meta name="citation_author_institution" content="Department of Radiology, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Biomedical Engineering, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Shannon B. Donnola"/>
+    
+    <meta name="citation_author_institution" content="Department of Radiology, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Yun Jiang"/>
+    
+    <meta name="citation_author_institution" content="Department of Radiology, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Joshua Batesole"/>
+    
+    <meta name="citation_author_institution" content="Department of Radiology, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Rebecca Darrah"/>
+    
+    <meta name="citation_author_institution" content="Frances Payne Bolton School of Nursing, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Genetics and Genome Sciences, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Mitchell L. Drumm"/>
+    
+    <meta name="citation_author_institution" content="Department of Genetics and Genome Sciences, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Pediatrics, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Susann M. Brady-Kalnay"/>
+    
+    <meta name="citation_author_institution" content="Department of Molecular Biology and Microbiology, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Neurosciences, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Nicole F. Steinmetz"/>
+    
+    <meta name="citation_author_institution" content="Department of Radiology, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Biomedical Engineering, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Materials Science and Engineering, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Macromolecular Science and Engineering, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Division of General Medicine-Oncology, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Xin Yu"/>
+    
+    <meta name="citation_author_institution" content="Department of Biomedical Engineering, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Physiology and Biophysics, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Mark A. Griswold"/>
+    
+    <meta name="citation_author_institution" content="Department of Radiology, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Biomedical Engineering, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author" content="Chris A. Flask"/>
+    
+    <meta name="citation_author_institution" content="Department of Radiology, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Biomedical Engineering, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_author_institution" content="Department of Pediatrics, Case Western Reserve University, Cleveland, USA"/>
+    
+    <meta name="citation_reference" content="Padhani, A. R. et al. Dynamic contrast enhanced MRI of prostate cancer: correlation with morphology and tumour stage, histological grade and PSA. Clin. Radiol. 
+                           55, 99&#8211;109 (2000)."/>
+    
+    <meta name="citation_reference" content="Herborn, C. U. et al. Comprehensive time-resolved MRI of peripheral vascular malformations. Am. J. Roentgenol. 
+                           181, 729&#8211;735 (2003)."/>
+    
+    <meta name="citation_reference" content="Lima, J. A. C. et al. Regional heterogeneity of human myocardial infarcts demonstrated by contrast-enhanced MRI. Circulation 
+                           92, 1117&#8211;1125 (1995)."/>
+    
+    <meta name="citation_reference" content="Bock, J. et al. 4D phase contrast MRI at 3 T: effect of standard and blood-pool contrast agents on SNR, PC-MRA, and blood flow visualization. Magn. Reson. Med. 
+                           63, 330&#8211;338 (2010)."/>
+    
+    <meta name="citation_reference" content="Reimer, P., Schneider, G. &amp; Schima, W. Hepatobiliary contrast agents for contrast-enhanced MRI of the liver: properties, clinical development and applications. Eur. Radiol. 
+                           14, 559&#8211;578 (2004)."/>
+    
+    <meta name="citation_reference" content="Pu, F. et al. Prostate-specific membrane antigen targeted protein contrast agents for molecular imaging of prostate cancer by MRI. Nanoscale 
+                           8, 12668; 10.1053/crad.1999.0327 (2016)."/>
+    
+    <meta name="citation_reference" content="Zhou, Z., Han, Z. &amp; Lu, Z. R. A targeted nanoglobular contrast agent from host-guest self-assembly for MR cancer molecular imaging. Biomaterials 
+                           85, 168&#8211;179 (2016)."/>
+    
+    <meta name="citation_reference" content="Kitagawa, T. et al. RGD targeting of human ferritin iron-oxide nanoparticles enhances in vivo molecular MRI of experimental aortic aneurysms. J. Magn. Reson. Imaging 
+                           45, 1144&#8211;1153 (2016)."/>
+    
+    <meta name="citation_reference" content="Liu, X. et al. MRI contrast agent for targeting glioma: interleukin-13 labeled liposome encapsulating gadolinium-DTPA. Neuro. Oncol. 
+                           18, 691&#8211;699 (2016)."/>
+    
+    <meta name="citation_reference" content="Li, T. et al. A new interleukin-13 amino-coated gadolinium metallofullerene nanoparticle for targeted MRI detection of glioblastoma tumor cells. J. Am. Chem. Soc. 
+                           137, 7881&#8211;7888 (2015)."/>
+    
+    <meta name="citation_reference" content="Abakumova, T. et al. Connexin 43-targeted T1 contrast agent for MRI diagnosis of glioma. Contrast Media Mol. Imaging 
+                           11, 15&#8211;23 (2016)."/>
+    
+    <meta name="citation_reference" content="Zhou, Z. et al. MRI detection of breast cancer micrometastases with a fibronectin-targeting contrast agent. Nat. Commun. 
+                           6, 7984; doi:
+                    10.1038/ncomms8984
+                    
+                  &#160;(2015)."/>
+    
+    <meta name="citation_reference" content="Gale, E. M., Jones, C. M., Ramsay, I., Farrar, C. T. &amp; Caravan, P. A Janus chelator enables biochemically responsive MRI contrast with exceptional dynamic range. J. Am. Chem. Soc. 
+                           138, 15861&#8211;15864 (2016)."/>
+    
+    <meta name="citation_reference" content="Catanzaro, V. et al. A R2p/R1p ratiometric procedure to assess matrix metalloproteinase-2 activity by magnetic resonance imaging. Angew. Chemie - Int. Ed. 
+                           52, 3926&#8211;3930 (2013)."/>
+    
+    <meta name="citation_reference" content="Kim, K. S., Park, W., Hu, J., Bae, Y. H. &amp; Na, K. A cancer-recognizable MRI contrast agents using pH-responsive polymeric micelle. Biomaterials 
+                           35, 337&#8211;343 (2014)."/>
+    
+    <meta name="citation_reference" content="Fuchs, B. C. et al. Molecular MRI of collagen to diagnose and stage liver fibrosis. J. Hepatol. 
+                           59, 992&#8211;998 (2013)."/>
+    
+    <meta name="citation_reference" content="Kircher, M. F. et al. A brain tumor molecular imaging strategy using a new triple-modality MRI-photoacoustic-Raman nanoparticle. Nat. Med. 
+                           18, 829&#8211;834 (2012)."/>
+    
+    <meta name="citation_reference" content="Wood, M. L. &amp; Hardy, P. A. Proton relaxation enhancement. J. Magn. Reson. Imaging 
+                           3, 149&#8211;156 (1993)."/>
+    
+    <meta name="citation_reference" content="Assl&#228;nder, J., Glaser, S. J. &amp; Hennig, J. Pseudo steady-state free precession for MR-Fingerprinting. Magn. Reson. Med. 
+                           77, 1151&#8211;1161 (2016)."/>
+    
+    <meta name="citation_reference" content="Hamilton, J. I. et al. MR fingerprinting for rapid quantification of myocardial T1, T2, and proton spin density. Magn. Reson. Med. 
+                           77, 1446&#8211;1459 (2016)."/>
+    
+    <meta name="citation_reference" content="Cauley, S. F. et al. Fast group matching for MR fingerprinting reconstruction. Magn. Reson. Med. 
+                           74, 523&#8211;528 (2014)."/>
+    
+    <meta name="citation_reference" content="Gao, Y. et al. Preclinical MR fingerprinting (MRF) at 7 T: effective quantitative imaging for rodent disease models. NMR Biomed. 
+                           28, 384&#8211;394 (2015)."/>
+    
+    <meta name="citation_reference" content="Buonincontri, G. &amp; Sawiak, S. J. MR fingerprinting with simultaneous B1 estimation. Magn. Reson. Med. 
+                           76, 1127&#8211;1135 (2016)."/>
+    
+    <meta name="citation_reference" content="Ma, D. et al. Magnetic resonance fingerprinting. Nature 
+                           495, 187&#8211;192 (2013)."/>
+    
+    <meta name="citation_reference" content="Jiang, Y., Ma, D., Seiberlich, N., Gulani, V. &amp; Griswold, M. MR fingerprinting using fast imaging with steady state precession (FISP) with spiral readout. Magn. Reson. Med. 
+                           74, 1621&#8211;1631 (2015)."/>
+    
+    <meta name="citation_reference" content="Ye, H. et al. Accelerating magnetic resonance fingerprinting (MRF) using t-blipped simultaneous multislice (SMS) acquisition. Magn. Reson. Med. 
+                           75, 2078&#8211;2085 (2016)."/>
+    
+    <meta name="citation_reference" content="Cloos, M. A. et al. Multiparametric imaging with heterogeneous radiofrequency fields. Nat. Commun.&#160;7, 12445; doi:
+                    10.1038/ncomms12445
+                    
+                  &#160;(2016)."/>
+    
+    <meta name="citation_reference" content="Rohrer, M., Bauer, H., Mintorovitch, J., Requardt, M. &amp; Weinmann, H.-J. Comparison of magnetic properties of MRI contrast media solutions at different magnetic field strengths. Invest. Radiol. 
+                           40, 715&#8211;724 (2005)."/>
+    
+    <meta name="citation_reference" content="Caravan, P., Farrar, C., Frullano, L. &amp; Uppal, R. Contrast agents. Contrast Media Mol. Imaging 
+                           4, 89&#8211;100 (2009)."/>
+    
+    <meta name="citation_reference" content="Lauffer, R. B. Paramagnetic metal complexes as water proton relaxation agents for NMR imaging: theory and design. Chem. Rev. 
+                           87, 901&#8211;927 (1987)."/>
+    
+    <meta name="citation_reference" content="Nofiele, J. T. &amp; Cheng, H. L. M. Ultrashort echo time for improved positive-contrast manganese-enhanced MRI of cancer. PLoS One 
+                           8, e58617; doi:
+                    10.1371/journal.pone.0058617
+                    
+                   (2013)."/>
+    
+    <meta name="citation_reference" content="Kubaska, S., Sahani, D. V., Saini, S., Hahn, P. F. &amp; Halpern, E. Dual contrast enhanced magnetic resonance imaging of the liver with superparamagnetic iron oxide followed by gadolinium for lesion detection and characterization. Clin. Radiol. 
+                           56, 410&#8211;415 (2001)."/>
+    
+    <meta name="citation_reference" content="Hung, A. H., Lilley, L. M., Hu, F., Harrison, V. S. R. &amp; Meade, T. J. Magnetic barcode imaging for contrast agents. Magn. Reson. Med. 
+                           77, 970&#8211;978 (2017)."/>
+    
+    <meta name="citation_reference" content="Ali, M. M., Liu, G., Shah, T., Flask, C. A. &amp; Pagel, M. D. Using two chemical exchange saturation transfer magnetic resonance imaging contrast agents for molecular imaging studies. Acc. Chem. Res. 
+                           42, 915&#8211;924 (2009)."/>
+    
+    <meta name="citation_reference" content="Fern&#225;ndez-Cuervo, G., Sinharay, S. &amp; Pagel, M. D. A catalyCEST MRI contrast agent that can simultaneously detect two enzyme activities. ChemBioChem 
+                           17, 383&#8211;387 (2016)."/>
+    
+    <meta name="citation_reference" content="Hingorani, D. V. et al. A single diamagnetic catalyCEST MRI contrast agent that detects cathepsin B enzyme activity by using a ratio of two CEST signals. Contrast Media Mol. Imaging 
+                           11, 130&#8211;138 (2016)."/>
+    
+    <meta name="citation_reference" content="Schmitt, P. et al. Inversion recovery TrueFISP: quantification of T1, T2, and spin density. Magn. Reson. Med. 
+                           51, 661&#8211;667 (2004)."/>
+    
+    <meta name="citation_reference" content="Deoni, S. C. L., Peters, T. M. &amp; Rutt, B. K. High-resolution T1 and T2 mapping of the brain in a clinically acceptable time with DESPOT1 and DESPOT2. Magn. Reson. Med. 
+                           53, 237&#8211;241 (2005)."/>
+    
+    <meta name="citation_reference" content="Herrmann, K. et al. Dynamic quantitative T1 mapping in orthotopic brain tumor xenografts. Transl. Oncol. 
+                           9, 147&#8211;154 (2016)."/>
+    
+    <meta name="citation_reference" content="Towner, R. A. et al. In vivo detection of c-Met expression in a rat C6 glioma model. J. Cell. Mol. Med. 
+                           12, 174&#8211;186 (2008)."/>
+    
+    <meta name="citation_reference" content="Ingrisch, M. et al. Quantification of perfusion and permeability in multiple sclerosis. Invest. Radiol. 
+                           47, 252&#8211;258 (2012)."/>
+    
+    <meta name="citation_reference" content="Taheri, S., Gasparovic, C., Shah, N. J. &amp; Rosenberg, G. A. Quantitative measurement of blood-brain barrier permeability in human using dynamic contrast-enhanced MRI with fast T1 mapping. Magn. Reson. Med. 
+                           65, 1036&#8211;1042 (2011)."/>
+    
+    <meta name="citation_reference" content="Ma, D. et al. Slice profile and B1 corrections in 2D magnetic resonance fingerprinting. Magn. Reson. Med.;&#160;doi:
+                    10.1002/mrm.26580
+                    
+                   (2017)."/>
+    
+    <meta name="citation_reference" content="Stanisz, G. J. &amp; Henkelman, R. M. Gd-DTPA relaxivity depends on macromolecular content. Magn. Reson. Med. 
+                           44, 665&#8211;667 (2000)."/>
+    
+    <meta name="citation_reference" content="Dula, A. N., Gochberg, D. F., Valentine, H. L., Valentine, W. M. &amp; Does, M. D. Multiexponential T2, magnetization transfer, and quantitative histology in white matter tracts of rat spinal cord. Magn. Reson. Med. 
+                           63, 902&#8211;909 (2010)."/>
+    
+    <meta name="citation_reference" content="Beg, M. S., Mohapatra, J., Pradhan, L., Patkar, D. &amp; Bahadur, D. Porous Fe3O4-SiO2 core-shell nanorods as high-performance MRI contrast agent and drug delivery vehicle. J. Magn. Magn. Mater. 
+                           428, 340&#8211;347 (2017)."/>
+    
+    <meta name="citation_reference" content="Hiller, K.-H., Waller, C., Nabrendorf, M., Bauer, W. R. &amp; Jakob, P. M. Assessment of cardiovascular apoptosis in the isolated rat heart by magnetic resonance molecular imaging. Mol. Imaging 
+                           5, 115&#8211;121 (2006)."/>
+    
+    <meta name="citation_reference" content="Majumdar, S., Zoghbi, S., Pope, C. F. &amp; Gore, J. C. Quantitation of MR relaxation effects of iron oxide particles in liver and spleen. Radiology 
+                           169, 653&#8211;658 (1988)."/>
+    
+    <meta name="access_endpoint" content="https://www.nature.com/platform/readcube-access">
+
+    <script src="//content.readcube.com/nature/epdf.js"></script>
+    <script src="//nexus.ensighten.com/npg/Bootstrap.js"></script>
+</head>
+<body>
+<div class="break-box box-1 js-box-1" id="small-screen"></div>
+<div class="break-box box-2 js-box-2" id="single-column"></div>
+<div class="break-box box-3 js-box-3" id="smaller-screen"></div>
+<div class="break-box box-4 js-box-4" id="standard-screen"></div>
+</body>
+</html>

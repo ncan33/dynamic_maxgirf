@@ -131,8 +131,10 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
         kx_echo_2, ky_echo_2, para);
 
     %% save 
-    f_mag = imageMRI(abs([im_echo_1(:,:,end), im_echo_2(:,:,end)]));
-    %f_phase = imageMRI(angle(im_echo_1(:,:,end), im_echo_2(:,:,end)));
+    if ifplot
+        f_mag = imageMRI(abs([im_echo_1(:,:,end), im_echo_2(:,:,end)]));
+        %f_phase = imageMRI(angle(im_echo_1(:,:,end), im_echo_2(:,:,end)));
+    end
     if ifsave
         save_name   = sprintf(['./recon_data/',num2str(narm_frame),'arm_',num2str(para.weight_tTV),'_tTV_',num2str(para.weight_sTV),'_sTV_','%s_recon.mat'], all_dat(file_index).name(1:end-8));
     %         figure_name = sprintf('./figure/%s_recon_naverage_%g.png', all_dat(i).name(1:end-8), naverage);

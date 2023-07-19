@@ -16,7 +16,7 @@ all_dat     = dir('/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_ha
 nfile       = length(all_dat);
 % naverage    = 1;
 % nprep       = 5;
-narm_frame  = 2;
+narm_frame  = 5;
 ifsave      = 1;
 file_index = 1;
 
@@ -137,6 +137,8 @@ Data.N.W = kspace_info.DCF(:, 1);
 Data.kSpace = kspace_echo_1;
 Data.first_est = NUFFT.NUFFT_adj(Data.kSpace, Data.N);
 NUFFT_im_echo_1 = Data.first_est;
+csm = get_sens_map(NUFFT_im_echo_1, '2D');
+NUFFT_im_echo_1_combined = sum(bsxfun(@times, conj(csm), NUFFT_im_echo_1), 4);
 
 scale = max(abs(Data.first_est(:)));
 
@@ -145,7 +147,7 @@ Data.first_est = sum(Data.first_est .* conj(Data.sens_map), 4);
 
 para.Recon.weight_tTV = scale * para.weight_tTV; % temporal regularization weight
 para.Recon.weight_sTV = scale * para.weight_sTV; % spatial regularization weight
-
+%%
 [Image_recon, para] = STCR_conjugate_gradient(Data, para);
 Image_recon = fliplr(rot90(Image_recon, -1));
 im_echo_1 = crop_half_FOV(Image_recon, matrix_size_keep);

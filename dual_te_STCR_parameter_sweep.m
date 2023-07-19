@@ -3,6 +3,10 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame,tTV_low,tTV_high,ifGPU,
     % dual TE variable density spiral raw RTHawk data. It calls STCR on my
     % the data of this repository
     
+    if ~isfolder('./recon_data/parameter_sweep')
+        mkdir ./recon_data/parameter_sweep
+    end
+
     arguments
         narm_frame
         tTV_low = 0.0001;
@@ -14,4 +18,6 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame,tTV_low,tTV_high,ifGPU,
     for
     [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     kspace_info, para] = dual_te_STCR_wrapper(narm_frame,tTV,sTV,ifGPU,path)
+
+    
 end

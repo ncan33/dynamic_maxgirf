@@ -23,7 +23,7 @@ function [im_echo, NUFFT_im, para] = STCR(kspace_info, kspace, kx, ky, para)
     Data.kSpace = kspace;
     Data.first_est = NUFFT.NUFFT_adj(Data.kSpace, Data.N);
     
-    NUFFT_im = sum(bsxfun(@times, conj(get_sens_map(Data.first_est)), Data.first_est), 4);
+    NUFFT_im = sum(bsxfun(@times, conj(get_sens_map(Data.first_est, '2D')), Data.first_est), 4);
 
     scale = max(abs(Data.first_est(:)));
 

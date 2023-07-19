@@ -67,8 +67,8 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     para.weight_tTV = tTV; % expected range is 1e-1 to 1e-5 
     para.weight_sTV = sTV; % expected range is 1e-1 to 1e-6
 
-    para.setting.ifplot = 1;        % display image and cost during reconstruction
-    para.setting.ifGPU = ifGPU;         % set to 1 when you want to use GPU
+    para.setting.ifplot = ifplot; % display image and cost during reconstruction
+    para.setting.ifGPU = ifGPU; % set to 1 when you want to use GPU
 
     para.Recon.no_comp = ncoil;     % number of coils
     %para.Recon.FOV = 1.25;         % reconstruction FOV

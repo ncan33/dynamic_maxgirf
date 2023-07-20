@@ -24,6 +24,7 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     addpath ./util/
 
     ccc %check that setup.m is run
+    disp(['Loading data for tTV = ', num2str(tTV), ' and sTV = ', num2str(sTV)])
     if ~isfolder('./recon_data')
         mkdir ./recon_data
     end

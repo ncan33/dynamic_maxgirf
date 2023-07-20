@@ -24,7 +24,9 @@ function [im_echo, NUFFT_im, para] = STCR(kspace_info, kspace, kx, ky, para)
     Data.first_est = NUFFT.NUFFT_adj(Data.kSpace, Data.N);
     
     NUFFT_im = sum(bsxfun(@times, conj(get_sens_map(Data.first_est, '2D')), Data.first_est), 4);
-
+    
+    disp('NUFFT complete.')
+    
     scale = max(abs(Data.first_est(:)));
 
     Data.sens_map = get_sens_map(Data.first_est, '2D');
@@ -33,6 +35,8 @@ function [im_echo, NUFFT_im, para] = STCR(kspace_info, kspace, kx, ky, para)
     para.Recon.weight_tTV = scale * para.weight_tTV; % temporal regularization weight
     para.Recon.weight_sTV = scale * para.weight_sTV; % spatial regularization weight
 
+    disp(['Beginning STCR for tTV = ', num2str(para.weight_tTV), ' and sTV = ', num2str(para.weight_sTV)])
+    toc
     [Image_recon, para] = STCR_conjugate_gradient(Data, para);
     Image_recon = fliplr(rot90(Image_recon, -1));
     im_echo = crop_half_FOV(Image_recon, matrix_size_keep);

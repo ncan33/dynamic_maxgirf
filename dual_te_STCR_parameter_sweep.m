@@ -72,7 +72,7 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_low, tTV_high, ste
         for j = 1:length(sTV_sweep)
             [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, kspace_info, para] = dual_te_STCR_wrapper(narm_frame, tTV_sweep(i), initial_sTV_sweep, niter, 0, ifGPU, 0);
             if ifsave
-                save_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(para.weight_tTV), '_tTV_', num2str(para.weight_sTV),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
+                save_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(tTV_sweep(i)), '_tTV_', num2str(sTV_sweep(j)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
                 save(save_name, 'im_echo_1', 'im_echo_2', 'NUFFT_im_echo_1', 'NUFFT_im_echo_2', 'kspace_info', 'para', '-v7.3');
             end
         end

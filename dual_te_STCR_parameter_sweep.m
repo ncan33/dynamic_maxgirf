@@ -52,10 +52,15 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_low, tTV_high, ste
     
     close all
     disp('Initial sweep done! Yay!')
-    input('Hit enter, and the initial parameter sweep will play.');
+    %input('Hit enter, and the initial parameter sweep will play.');
+    %UNCOMMENT THE ABOVE
+    %UNVOMMENT THE ABOVE
     play_mri_video(29, 20/narm_frame, initial_sweep)
-    tTV_anchor = input('Enter the best tTV: ');
-    
+    %tTV_anchor = input('Enter the best tTV: ');
+    %UNCOMMENT THE ABOVE
+    %UNVOMMENT THE ABOVE
+    %comment the below
+    tTV_anchor = 1e-2;
     clear initial_sweep
     
     %% sweep though anchor tTV
@@ -107,5 +112,6 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_low, tTV_high, ste
     end
     
     sweep = [sweep_row_1; sweep_row_2; sweep_row_3];
+    save('sweep','sweep')
 end
     

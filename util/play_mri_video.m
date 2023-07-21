@@ -1,4 +1,5 @@
-function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, convert_to_mp4)
+function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, ...
+    convert_to_mov, vid_name)
     % This function is called as follows:
     %
     % play_mri_video(n_frames, fps, video_matrix, save_video, resize figure)
@@ -25,7 +26,8 @@ function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, 
         video_matrix
         save_video = 0
         resize_figure = 0
-        convert_to_mp4 = 0
+        convert_to_mov = 1
+        vid_name = 'mri_video'
     end
     
     if ~isnumeric(n_frames)
@@ -39,8 +41,7 @@ function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, 
                 'enter in command window'])
         end
         
-        vidName = 'mri_video';
-        video = VideoWriter(vidName);
+        video = VideoWriter(vid_name);
         video.FrameRate = fps;
         open(video)
     end
@@ -51,7 +52,7 @@ function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, 
         %a = fliplr(rot90(a, -1)); % for NUFFT
         imagesc(a); axis image; colorbar; colormap gray
         caxis([0 abs(mean(squeeze(max(squeeze(max(video_matrix))))))])
-        caxis([0 0.5])
+        %caxis([0 0.5])
         
         %% play vs. save video
         if ~save_video
@@ -64,10 +65,11 @@ function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, 
         end
     end
     
-    if save_video && convert_to_mp4
+    if save_video && convert_to_mov
         close(video)
         disp('Frames successfully saved in ncan/make_video_tmp')
-        convert_command = sprintf('ffmpeg -y -i %s.avi %s.mp4', vidName, vidName);
+        convert_command = sprintf('ffmpeg -i %s.avi -c:v copy -c:a copy %s.mov', vid_name, vid_name);
         system(convert_command)
+        system(['rm ',vid_name,'.avi'])
     end
 end

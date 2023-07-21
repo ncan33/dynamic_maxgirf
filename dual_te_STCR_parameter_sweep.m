@@ -1,5 +1,8 @@
 function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_step_factor, tTV_low, tTV_high, ...
     niter, ifsave, ifGPU, path)
+    % Edit that needs to be made: number of sweeps in temporal direction
+    % needs to be a customizable parameter
+    % 
     % Parameter sweep for spatiotemporally constrained reconstruction on
     % dual TE variable density spiral raw RTHawk data. It calls STCR on my
     % the data of this repository
@@ -86,7 +89,7 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         end
     end
     
-    for i = 1:5
+    for i = 1:length(tTV_sweep)
         disp('Achored sweep done! This is great!')
     end
     
@@ -103,22 +106,26 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
             elseif i == 1
                 sweep_row_1 = [sweep_row_1, im_echo_1];
             elseif i == 2 && j == 1
+                disp('Successfully sweeped through first row!')
                 sweep_row_2 = im_echo_1;
             elseif i == 2
                 sweep_row_2 = [sweep_row_2, im_echo_1];
             elseif i == 3 && j == 1
+                disp('Successfully sweeped through second row!')
                 sweep_row_3 = im_echo_1;
             elseif i == 3
                 sweep_row_3 = [sweep_row_3, im_echo_1];
             elseif i == 4 && j == 1
+                disp('Successfully sweeped through third row!')
                 sweep_row_4 = im_echo_1;
             else
                 sweep_row_4 = [sweep_row_4, im_echo_1];
             end
         end
     end
+    disp('Successfully sweeped through fourth row!')
     
-    sweep = [sweep_row_1; sweep_row_2; sweep_row_3, sweep_row_4];
+    sweep = [sweep_row_1; sweep_row_2; sweep_row_3; sweep_row_4];
     if ifsave
         save(['sweep_',num2str(narm_frame),'_arm'],'sweep')
     end

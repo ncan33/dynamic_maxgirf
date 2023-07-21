@@ -63,13 +63,9 @@ function sweep = parameter_sweep_read_only(narm_frame, tTV_step_factor, sTV_step
         end
     end
     
-    disp(size(sweep_row_1))
-    disp(size(sweep_row_2))
-    disp(size(sweep_row_3))
-    disp(size(sweep_row_4))
-    
     sweep = [sweep_row_1; sweep_row_2; sweep_row_3; sweep_row_4];
+    
     if ifsave
-        save(['sweep_',num2str(narm_frame),'_arm'],'sweep')
+        save(['sweep_',num2str(narm_frame),'_arm'],'sweep','-v7.3')
     end
 end

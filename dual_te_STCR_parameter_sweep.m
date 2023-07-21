@@ -110,7 +110,7 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
                 sweep_row_3 = im_echo_1;
             elseif i == 3
                 sweep_row_3 = [sweep_row_3, im_echo_1];
-            elseif i ==4 && j == 1
+            elseif i == 4 && j == 1
                 sweep_row_4 = im_echo_1;
             else
                 sweep_row_4 = [sweep_row_4, im_echo_1];

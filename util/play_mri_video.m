@@ -1,7 +1,7 @@
 function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, convert_to_mp4)
     % This function is called as follows:
     %
-    % play_mri_video(n_frames, fps, video_matrix, save_video)
+    % play_mri_video(n_frames, fps, video_matrix, save_video, resize figure)
     % 
     % - n_frames: number of frame to show. set n_frames to 'all' if you
     %   want to play every frame.
@@ -9,12 +9,15 @@ function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, 
     % - video_matrix: 3D matrix where the 3rd dimension is the temporal one
     % - save_video: set this to 1 if you wish to save video in the
     %   make_video directory's tmp folder for videomaking
+    % - resize_figure: if set to 1, a figure and the user is asked to
+    %   resize it before plotting. if set to 0, the video will be plotted
+    %   in the current figure (if none exists, a standard size figure will
+    %   be created)
     %
-    % Note: fps is equal to the acquistion fps (2 fps) divided by the
-    % number of interleaves for the full kspace trajectory (10) times the
-    % number of arms per frame (5), which should be undersampled. In this
-    % example calculation, the fps for 5 arms per frame should be 2/10*5 = 
-    % 4 fps.
+    % Note: fps is equal to the acquistion fps (2 fps) time the number of
+    % interleaves for the full kspace trajectory (10) divided by the number
+    % of arms per frame (5), which should be undersampled. In this example
+    % calculation, the fps for 5 arms per frame should be 2*10/5 = 4 fps.
     
     arguments
         n_frames
@@ -54,14 +57,15 @@ function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, 
         if ~save_video
             pause(1/fps)
         else
-            saveas(gcf, ['/server/home/ncan/make_video/tmp', num2str(i), '.png'])
-            image = imread(['/server/home/ncan/make_video/tmp', num2str(i), '.png']);
+            saveas(gcf, ['/server/home/ncan/make_video/tmp/', num2str(i), '.png'])
+            image = imread(['/server/home/ncan/make_video/tmp/', num2str(i), '.png']);
             writeVideo(video, image);
             disp(['Frame ', num2str(i),' done!'])
         end
     end
     
     if save_video && convert_to_mp4
+        close(video)
         disp('Frames successfully saved in ncan/make_video_tmp')
         convert_command = sprintf('ffmpeg -y -i %s.avi %s.mp4', vidName, vidName);
         system(convert_command)

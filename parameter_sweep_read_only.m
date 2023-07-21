@@ -1,5 +1,5 @@
-function sweep = parameter_sweep_read_only(narm_frame, tTV_step_factor, sTV_step_factor, tTV_anchor, tTV_high, ...
-    niter, ifsave, ifGPU, path)
+function sweep = parameter_sweep_read_only(narm_frame, tTV_step_factor, sTV_step_factor, tTV_anchor, ...
+    ifsave, path)
     
     % FUNCTION MUST BE RENAMED AND RELOCATED
     % 
@@ -68,7 +68,7 @@ function sweep = parameter_sweep_read_only(narm_frame, tTV_step_factor, sTV_step
     disp(size(sweep_row_3))
     disp(size(sweep_row_4))
     
-    sweep = [sweep_row_1; sweep_row_2; sweep_row_3, sweep_row_4];
+    sweep = [sweep_row_1; sweep_row_2; sweep_row_3; sweep_row_4];
     if ifsave
         save(['sweep_',num2str(narm_frame),'_arm'],'sweep')
     end

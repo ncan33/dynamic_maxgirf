@@ -15,7 +15,7 @@ function [im_echo, NUFFT_im, para] = STCR(kspace_info, kspace, kx, ky, para)
         kspace = kspace(:, :, time_frames, :);
     end
 
-    para.Recon.FOV = fov(1)/100; %units of decimeter for some reason
+    para.Recon.FOV = fov(1)/100; % units of decimeter for some reason
     
     Data.N = NUFFT.init(kx*para.Recon.matrix_size(1), ky*para.Recon.matrix_size(2), 1, [4, 4], para.Recon.matrix_size(1), para.Recon.matrix_size(1));
     Data.N.W = kspace_info.DCF(:, 1);
@@ -24,6 +24,7 @@ function [im_echo, NUFFT_im, para] = STCR(kspace_info, kspace, kx, ky, para)
     Data.first_est = NUFFT.NUFFT_adj(Data.kSpace, Data.N);
     
     NUFFT_im = sum(bsxfun(@times, conj(get_sens_map(Data.first_est, '2D')), Data.first_est), 4);
+    NUFFT_im = fliplr(rot90(NUFFT_im, -1)); % adjust orientation
     
     disp('NUFFT complete.')
     
@@ -38,6 +39,6 @@ function [im_echo, NUFFT_im, para] = STCR(kspace_info, kspace, kx, ky, para)
     disp(['Beginning STCR for tTV = ', num2str(para.weight_tTV), ' and sTV = ', num2str(para.weight_sTV)])
     toc
     [Image_recon, para] = STCR_conjugate_gradient(Data, para);
-    Image_recon = fliplr(rot90(Image_recon, -1));
+    Image_recon = fliplr(rot90(Image_recon, -1)); % adjust orientation
     im_echo = crop_half_FOV(Image_recon, matrix_size_keep);
 end

@@ -6,8 +6,8 @@ function output = stcr_vs_nufft(frame, im_echo_1, im_echo_2, NUFFT_im_echo_1, NU
         subplot(2,1,1); imagesc(abs([im_echo_1(:,:,end), im_echo_2(:,:,end)])); axis image;
         colormap gray; colorbar
         title('Echo 1 (left) and Echo 2 (right) of the final frame of STCR')
-        NUFFT_1 = sos(NUFFT_im_echo_1(:,:,end,:));
-        NUFFT_2 = sos(NUFFT_im_echo_2(:,:,end,:));
+        NUFFT_1 = NUFFT_im_echo_1(:,:,end);
+        NUFFT_2 = NUFFT_im_echo_2(:,:,end);
 
         sz = size(NUFFT_1);
         sz_stcr = size(im_echo_1);

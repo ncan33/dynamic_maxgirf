@@ -39,13 +39,14 @@ function play_mri_video(n_frames, fps, video_matrix, save_video)
     end
     
     for i = 1:n_frames
-        a = abs(video_matrix(:,:,i));
-        %a = fliplr(rot90(a, -1));
+        %a = abs(video_matrix(:,:,i));
+        a = abs(video_matrix(70:349,  70:349, i)); % for NUFFT
+        a = fliplr(rot90(a, -1)); % for NUFFT
         imagesc(a); axis image; colorbar; colormap gray
         caxis([0 abs(mean(squeeze(max(squeeze(max(video_matrix))))))])
         
         %% play vs. save video
-        if save_video == false
+        if save_video
             pause(1/fps)
         else
             saveas(gcf, ['/server/home/ncan/make_video/tmp', num2str(i), '.png'])

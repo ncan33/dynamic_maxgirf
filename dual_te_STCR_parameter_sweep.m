@@ -66,7 +66,7 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_low, tTV_high, ste
     %% sweep though anchor tTV
     
     tTV_sweep = zeros(1,3);
-    tTV_sweep(2) = tTV_anchor; tTV_sweep(1) = tTV_anchor/step_factor; tTV_sweep(3) = tTV_anchor*step_factor;
+    tTV_sweep(2) = tTV_anchor; tTV_sweep(1) = tTV_anchor*step_factor; tTV_sweep(3) = tTV_anchor/step_factor;
     
     sTV_sweep = zeros(1,6);
     for i = 1:6

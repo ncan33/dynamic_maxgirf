@@ -56,9 +56,8 @@ function play_mri_video(n_frames, fps, video_matrix, save_video)
         end
     end
     
-    disp('Frames successfully saved in ncan/make_video_tmp')
-    
-    if save_video == true
+    if save_video
+        disp('Frames successfully saved in ncan/make_video_tmp')
         convert_command = sprintf('ffmpeg -y -i %s.avi %s.mp4', vidName, vidName);
         system(convert_command)
     end

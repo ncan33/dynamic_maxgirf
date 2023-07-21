@@ -27,7 +27,7 @@ function play_mri_video(n_frames, fps, video_matrix, save_video)
         n_frames = size(video_matrix, 3);
     end
     
-    if save_video == true
+    if save_video
         figure;
         input(['Resize the figure as you wish. When done, press enter', ...
             ' in command window'])
@@ -46,7 +46,7 @@ function play_mri_video(n_frames, fps, video_matrix, save_video)
         caxis([0 abs(mean(squeeze(max(squeeze(max(video_matrix))))))])
         
         %% play vs. save video
-        if save_video
+        if ~save_video
             pause(1/fps)
         else
             saveas(gcf, ['/server/home/ncan/make_video/tmp', num2str(i), '.png'])

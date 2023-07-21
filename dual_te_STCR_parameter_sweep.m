@@ -1,13 +1,15 @@
-function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_low, tTV_high, step_factor, niter, ifsave, ifGPU, path)
+function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_step_factor, tTV_low, tTV_high, ...
+    niter, ifsave, ifGPU, path)
     % Parameter sweep for spatiotemporally constrained reconstruction on
     % dual TE variable density spiral raw RTHawk data. It calls STCR on my
     % the data of this repository
     
     arguments
         narm_frame
+        tTV_step_factor = 10 % each step will be x10 farther from the anchor
+        sTV_step_factor = 10
         tTV_low = 1e-7
         tTV_high = 1e-1
-        step_factor = 10 % each step will be x10 farther from the anchor
         niter = 75
         %niter = 150 % this is plenty
         ifsave = 1
@@ -60,17 +62,18 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_low, tTV_high, ste
     %UNCOMMENT THE ABOVE
     %UNVOMMENT THE ABOVE
     %comment the below
-    tTV_anchor = 1e-2;
+    tTV_anchor = 1e-1;
     clear initial_sweep
     
     %% sweep though anchor tTV
     
-    tTV_sweep = zeros(1,3);
-    tTV_sweep(2) = tTV_anchor; tTV_sweep(1) = tTV_anchor*step_factor; tTV_sweep(3) = tTV_anchor/step_factor;
+    tTV_sweep = zeros(1,4);
+    tTV_sweep(3) = tTV_anchor; tTV_sweep(1) = tTV_anchor/(tTV_step_factor^2);
+    tTV_sweep(2) = tTV_anchor/tTV_step_factor; tTV_sweep(4) = tTV_anchor*tTV_step_factor;
     
     sTV_sweep = zeros(1,6);
     for i = 1:6
-        sTV_sweep(i) = 1e-6*step_factor^(i-1);
+        sTV_sweep(i) = 1e-6*sTV_step_factor^(i-1);
     end
     
     for i = 1:length(tTV_sweep)
@@ -105,13 +108,17 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_low, tTV_high, ste
                 sweep_row_2 = [sweep_row_2, im_echo_1];
             elseif i == 3 && j == 1
                 sweep_row_3 = im_echo_1;
-            else
+            elseif i == 3
                 sweep_row_3 = [sweep_row_3, im_echo_1];
+            elseif i ==4 && j == 1
+                sweep_row_4 = im_echo_1;
+            else
+                sweep_row_4 = [sweep_row_4, im_echo_1];
             end
         end
     end
     
-    sweep = [sweep_row_1; sweep_row_2; sweep_row_3];
+    sweep = [sweep_row_1; sweep_row_2; sweep_row_3, sweep_row_4];
     save('sweep','sweep')
 end
     

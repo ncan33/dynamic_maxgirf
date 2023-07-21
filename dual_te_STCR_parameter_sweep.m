@@ -90,8 +90,8 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         disp('Achored sweep done! This is great!')
     end
     
-    %% imtile time -- echo 1 only for simplicity
-    clearvars -except tTV_sweep sTV_sweep narm_frame path
+    %% imtile the data -- echo 1 only for simplicity
+    clearvars -except tTV_sweep sTV_sweep narm_frame ifsave path
     
     for i = 1:length(tTV_sweep)
         for j = 1:length(sTV_sweep)
@@ -119,6 +119,8 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
     end
     
     sweep = [sweep_row_1; sweep_row_2; sweep_row_3, sweep_row_4];
-    save('sweep','sweep')
+    if ifsave
+        save(['sweep_',num2str(narm_frame),'_arm'],'sweep')
+    end
 end
     

@@ -69,7 +69,7 @@ function play_mri_video(n_frames, fps, video_matrix, save_video, resize_figure, 
         close(video)
         disp('Frames successfully saved in ncan/make_video_tmp')
         convert_command = sprintf('ffmpeg -i %s.avi -c:v copy -c:a copy %s.mov', vid_name, vid_name);
-        system(convert_command)
-        system(['rm ',vid_name,'.avi'])
+        system(convert_command);
+        system(['rm ',vid_name,'.avi']);
     end
 end

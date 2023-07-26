@@ -1,5 +1,5 @@
-function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_step_factor, tTV_low, tTV_high, ...
-    niter, ifsave, ifGPU, path)
+function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_step_factor, ...
+    n_tTV_steps, n_sTV_steps, tTV_low, tTV_high, niter, ifsave, ifGPU, path)
     % Edit that needs to be made: number of sweeps in temporal direction
     % needs to be a customizable parameter
     % 
@@ -11,6 +11,7 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         narm_frame
         tTV_step_factor = 10 % each step will be x10 farther from the anchor
         sTV_step_factor = 10
+        n_tTV_steps = 4
         tTV_low = 1e-7
         tTV_high = 1e-1
         niter = 75
@@ -18,6 +19,11 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         ifsave = 1
         ifGPU = 1
         path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat'
+    end
+    
+    if n_tTV_steps > 6
+        error(['Number of steps in the temporal direction too high.' ...
+            ' Ensure the number of steps is below'])
     end
     
     %% add paths
@@ -70,13 +76,13 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
     
     %% sweep though anchor tTV
     
-    tTV_sweep = zeros(1,4);
+    tTV_sweep = zeros(1,n_);
     tTV_sweep(3) = tTV_anchor; tTV_sweep(1) = tTV_anchor/(tTV_step_factor^2);
     tTV_sweep(2) = tTV_anchor/tTV_step_factor; tTV_sweep(4) = tTV_anchor*tTV_step_factor;
     
-    sTV_sweep = zeros(1,6);
-    for i = 1:6
-        sTV_sweep(i) = 1e-6*sTV_step_factor^(i-1);
+    sTV_sweep = zeros(1,n_sTV_steps);
+    for i = 1:n_sTV_steps
+        sTV_sweep(i) = 1*sTV_step_factor^(-n_sTV_steps)*sTV_step_factor^(i-1);
     end
     
     for i = 1:length(tTV_sweep)

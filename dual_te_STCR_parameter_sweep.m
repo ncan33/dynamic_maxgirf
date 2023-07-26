@@ -12,6 +12,7 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         tTV_step_factor = 10 % each step will be x10 farther from the anchor
         sTV_step_factor = 10
         n_tTV_steps = 4
+        n_sTV_steps = 4
         tTV_low = 1e-7
         tTV_high = 1e-1
         niter = 75
@@ -22,8 +23,14 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
     end
     
     if n_tTV_steps > 6
-        error(['Number of steps in the temporal direction too high.' ...
-            ' Ensure the number of steps is below'])
+        error(['Number of steps in the temporal direction too high.', ...
+            ' Ensure the number of steps is less than 6'])
+    end
+    
+    if n_tTV_steps ~= 4
+        error(["Only 4 steps in the temporal direction are supported", ...
+            " at this time. Please change the parameter 'n_tTV_steps'", ...
+            " to 4."])
     end
     
     %% add paths
@@ -76,7 +83,7 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
     
     %% sweep though anchor tTV
     
-    tTV_sweep = zeros(1,n_);
+    tTV_sweep = zeros(1,n_tTV_steps);
     tTV_sweep(3) = tTV_anchor; tTV_sweep(1) = tTV_anchor/(tTV_step_factor^2);
     tTV_sweep(2) = tTV_anchor/tTV_step_factor; tTV_sweep(4) = tTV_anchor*tTV_step_factor;
     
@@ -85,12 +92,17 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         sTV_sweep(i) = 1*sTV_step_factor^(-n_sTV_steps)*sTV_step_factor^(i-1);
     end
     
+    tTV_sweep = [0, tTV_sweep]; % add zero column
+    sTV_sweep = [0, sTV_sweep]; % add zero column
+    
     for i = 1:length(tTV_sweep)
         for j = 1:length(sTV_sweep)
-            [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, kspace_info, para] = dual_te_STCR_wrapper(narm_frame, tTV_sweep(i), initial_sTV_sweep, niter, 0, ifGPU, 0);
-            if ifsave
-                save_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(tTV_sweep(i)), '_tTV_', num2str(sTV_sweep(j)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
-                save(save_name, 'im_echo_1', 'im_echo_2', 'NUFFT_im_echo_1', 'NUFFT_im_echo_2', 'kspace_info', 'para', '-v7.3');
+            save_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(tTV_sweep(i)), '_tTV_', num2str(sTV_sweep(j)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
+            if ~isfile(save_name) && ~(tTV_sweep(i)==0 && sTV_sweep(j)==0) % don't STCR again if it already exists and also don't STCR for [tTV,sTV] = [0,0]
+                [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, kspace_info, para] = dual_te_STCR_wrapper(narm_frame, tTV_sweep(i), sTV_sweep(j), niter, 0, ifGPU, 0);
+                if ifsave
+                    save(save_name, 'im_echo_1', 'im_echo_2', 'NUFFT_im_echo_1', 'NUFFT_im_echo_2', 'kspace_info', 'para', '-v7.3');
+                end
             end
         end
     end
@@ -132,8 +144,47 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
     disp('Successfully sweeped through fourth row!')
     
     sweep = [sweep_row_1; sweep_row_2; sweep_row_3; sweep_row_4];
+    
+    % completing sweep with the zero column (sTV == 0) and zero row
+    % (tTV == 0) and NUFFT    
+    for i = 1:length(tTV_sweep)
+        load_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(tTV_sweep(i)), '_tTV_', num2str(0),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
+        load(load_name, 'im_echo_1');
+
+        if i == 1
+            zero_sTV_column = im_echo_1;
+        else
+            zero_sTV_column = [zero_sTV_column; im_echo_1];
+        end
+    end
+    
+    sweep = [zero_sTV_column, sweep];
+
+    disp('Successfully sweeped through zero sTV column!')
+    
+    for i = 0:length(sTV_sweep)
+        if i == 0
+            load_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(0), '_tTV_', num2str(sTV_sweep(i+1)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
+            load(load_name, 'NUFFT_im_echo_1');
+        else
+            load_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(0), '_tTV_', num2str(sTV_sweep(i)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
+            load(load_name, 'im_echo_1');
+        end
+
+        if i == 0
+            zero_tTV_row = NUFFT_im_echo_1;
+        else
+            zero_tTV_row = [zero_tTV_row, im_echo_1];
+        end
+    end
+    
+    sweep = [zero_tTV_row; sweep];
+
+    disp('Successfully sweeped through zero tTV column!')
+    
     if ifsave
         save(['sweep_',num2str(narm_frame),'_arm'],'sweep')
+        disp('Successfully saved the sweep variable!')
     end
 end
     

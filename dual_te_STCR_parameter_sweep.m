@@ -111,10 +111,7 @@ function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, 
             save_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(tTV_sweep(i)), '_tTV_', num2str(sTV_sweep(j)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
             if ~isfile(save_name) && ~(tTV_sweep(i)==0 && sTV_sweep(j)==0) % don't STCR again if it already exists and also don't STCR for [tTV,sTV] = [0,0]
                 [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, kspace_info, para] = dual_te_STCR_wrapper(narm_frame, tTV_sweep(i), sTV_sweep(j), niter, 0, ifGPU, 0);
-                NUFFT_im_echo_1 = NUFFT_im_echo_1(70:349, 70:349, :);
                 if ifsave
-                    disp(size(im_echo_1))
-                    disp(size(NUFFT_im_echo_1))
                     save(save_name, 'im_echo_1', 'NUFFT_im_echo_1', 'kspace_info', 'para', '-v7.3');
                     disp('Save complete')
                 end

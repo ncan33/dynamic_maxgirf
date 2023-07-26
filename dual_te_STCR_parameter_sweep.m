@@ -198,6 +198,7 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         if i == 0
             load_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(0), '_tTV_', num2str(sTV_sweep(i+2)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
             load(load_name, 'NUFFT_im_echo_1');
+            NUFFT_im_echo_1 = NUFFT_im_echo_1(70:349, 70:349, :);
         else
             load_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(0), '_tTV_', num2str(sTV_sweep(i+1)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
             load(load_name, 'im_echo_1');

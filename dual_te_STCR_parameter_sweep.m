@@ -102,6 +102,8 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
     
     tTV_sweep = [0, tTV_sweep]; % add zero column
     sTV_sweep = [0, sTV_sweep]; % add zero column
+    disp(tTV_sweep)
+    disp(sTV_sweep)
     
     for i = 1:length(tTV_sweep)
         for j = 1:length(sTV_sweep)
@@ -113,7 +115,10 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
                     disp(size(im_echo_1))
                     disp(size(NUFFT_im_echo_1))
                     save(save_name, 'im_echo_1', 'NUFFT_im_echo_1', 'kspace_info', 'para', '-v7.3');
+                    disp('Save complete')
                 end
+            else
+                disp('File already exists')
             end
         end
     end

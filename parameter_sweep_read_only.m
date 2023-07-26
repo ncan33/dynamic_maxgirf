@@ -143,7 +143,10 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     for i = 0:n_sTV_steps
         if i == 0
             load_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(0), '_tTV_', num2str(sTV_sweep(i+2)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
+            load(load_name, 'im_echo_1');
             load(load_name, 'NUFFT_im_echo_1');
+            NUFFT_im_echo_1 = NUFFT_im_echo_1 / mean(max(abs(NUFFT_im_echo_1), [], [1,2]));
+            NUFFT_im_echo_1 = NUFFT_im_echo_1 * mean(max(abs(im_echo_1), [], [1,2]));
         else
             load_name = sprintf(['./recon_data/parameter_sweep/', num2str(narm_frame), 'arm_', num2str(0), '_tTV_', num2str(sTV_sweep(i+1)),'_sTV_','%s_recon.mat'], dir(path).name(1:end-8));
             load(load_name, 'im_echo_1');

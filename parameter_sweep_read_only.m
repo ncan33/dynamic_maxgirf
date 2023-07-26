@@ -74,7 +74,7 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
             load(load_name, 'im_echo_1');
            
             tTV_grid(i,j) = tTV_sweep(i+1);
-            sTV_grid(i,j) = sTV_sweep(i+1);
+            sTV_grid(i,j) = sTV_sweep(j+1);
             
             if i == 1 && j == 1
                 sweep_row_1 = im_echo_1;

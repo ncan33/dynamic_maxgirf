@@ -9,9 +9,9 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
     
     arguments
         narm_frame
-        tTV_step_factor = 5 % each step will be x5 farther from the anchor
+        tTV_step_factor = 2.5 % each step will be x5 farther from the anchor
         sTV_step_factor = 10
-        n_tTV_steps = 2.5
+        n_tTV_steps = 5
         n_sTV_steps = 4
         perform_initial_sweep = 0
         tTV_low = 1e-7

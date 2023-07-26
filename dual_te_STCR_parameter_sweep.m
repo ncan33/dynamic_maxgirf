@@ -1,5 +1,6 @@
-function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_step_factor, ...
-    n_tTV_steps, n_sTV_steps, perform_initial_sweep, tTV_low, tTV_high, niter, ifsave, ifGPU, path)
+function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_step_factor, ...
+    n_tTV_steps, n_sTV_steps, perform_initial_sweep, tTV_anchor, tTV_low, tTV_high, niter, ...,
+    ifsave, ifGPU, path)
     % Edit that needs to be made: number of sweeps in temporal direction
     % needs to be a customizable parameter
     % 
@@ -14,10 +15,10 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         n_tTV_steps = 5
         n_sTV_steps = 4
         perform_initial_sweep = 0
+        tTV_anchor = 1e-1
         tTV_low = 1e-7
         tTV_high = 1e-1
         niter = 75
-        %niter = 150 % this is plenty
         ifsave = 1
         ifGPU = 1
         path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat'
@@ -81,7 +82,7 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         tTV_anchor = input('Enter the best tTV: ');
         clear initial_sweep
     elseif perform_initial_sweep == 0
-        tTV_anchor = 1e-1;
+        disp(['Using ', num2str(tTV_anchor), ' as the tTV_anchor...'])
     else
         error('perform_initial_sweep can either be set to true or false')
     end
@@ -128,7 +129,18 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
     end
     
     %% imtile the data -- echo 1 only for simplicity
-    clearvars -except tTV_sweep sTV_sweep narm_frame ifsave path
+    clearvars -except narm_frame tTV_step_factor sTV_step_factor tTV_anchor n_tTV_steps n_sTV_steps ifsave path
+    
+    [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV_step_factor, ...
+        sTV_step_factor, tTV_anchor, n_tTV_steps, n_sTV_steps, ifsave, path);
+%{
+    NOTE NOTE NOTE
+    NOTE NOTE NOTE
+    NOTE NOTE NOTE
+    
+    UNCOMMENT THIS SECTION IF CALLING THE READ ONLY FUNCTION DOESN'T WORK
+    UNCOMMENT THIS SECTION IF CALLING THE READ ONLY FUNCTION DOESN'T WORK
+    UNCOMMENT THIS SECTION IF CALLING THE READ ONLY FUNCTION DOESN'T WORK
     
     tTV_grid = zeros(n_tTV_steps, s_tTV_steps);
     sTV_grid = zeros(n_tTV_steps, s_tTV_steps);
@@ -229,4 +241,5 @@ function sweep = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_s
         disp('Successfully saved the sweep variable!')
     end
 end
-    
+   
+%}

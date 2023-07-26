@@ -65,8 +65,8 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     disp(sTV_sweep)
     
     %% sweep through data
-    tTV_grid = zeros(n_tTV_steps, s_tTV_steps);
-    sTV_grid = zeros(n_tTV_steps, s_tTV_steps);
+    tTV_grid = zeros(n_tTV_steps, n_sTV_steps);
+    sTV_grid = zeros(n_tTV_steps, n_sTV_steps);
     
     for i = 1:n_tTV_steps % note: n_tTV_steps + 1 == length(tTV_sweep)
         for j = 1:n_sTV_steps  % note: n_sTV_steps + 1 == length(sTV_sweep)

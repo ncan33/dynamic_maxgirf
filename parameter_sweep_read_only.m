@@ -132,8 +132,11 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     end
     
     sweep = [zero_sTV_column, sweep];
-    tTV_grid = [tTV_sweep(end-n_tTV_steps+1:end), tTV_grid];
-    sTV_grid = [zeros(n_sTV_steps,1), sTV_grid];
+    tTV_grid = [transpose(tTV_sweep(end-n_tTV_steps+1:end)), tTV_grid];
+    sTV_grid = [zeros(n_tTV_steps,1), sTV_grid];
+    
+    disp(tTV_grid)
+    disp(sTV_grid)
     
     disp('Successfully sweeped through zero sTV column!')
     

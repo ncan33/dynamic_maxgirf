@@ -1,5 +1,5 @@
 function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV_step_factor, sTV_step_factor, ...
-    tTV_anchor, n_tTV_steps, n_sTV_steps, max_sTV, ifsave, path)
+    tTV_anchor, n_tTV_steps, n_sTV_steps, max_sTV, ifsave, ifvideo, path)
     
     % FUNCTION MUST BE RENAMED AND RELOCATED
     % 
@@ -16,6 +16,7 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
         max_sTV = 0.05
         tTV_anchor = 0.02
         ifsave = 1
+        ifvideo = 1
         path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat'
     end
     
@@ -159,5 +160,8 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     if ifsave
         save(['sweep_',num2str(narm_frame),'_arm'],'sweep','tTV_grid','sTV_grid')
         disp('Successfully saved the sweep variable!')
+        if ifvideo
+            play_mri_video('all', 2*10/narm_frame, sweep, 1, 0, 1, 'mri_video_automatic')
+        end
     end
 end

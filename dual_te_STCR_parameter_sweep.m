@@ -112,7 +112,7 @@ function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, 
     end
     
     %% imtile the data -- echo 1 only for simplicity
-    clearvars -except narm_frame tTV_step_factor sTV_step_factor tTV_anchor n_tTV_steps n_sTV_steps ifsave path
+    clearvars -except narm_frame tTV_step_factor sTV_step_factor tTV_anchor n_tTV_steps n_sTV_steps ifsave ifvideo path
     
     [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV_step_factor, ...
         sTV_step_factor, tTV_anchor, n_tTV_steps, n_sTV_steps, ifsave, ifvideo, path);

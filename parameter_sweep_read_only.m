@@ -164,6 +164,7 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     tTV_grid = [zeros(1,n_sTV_steps+1); tTV_grid];
     sTV_grid = [sTV_sweep; sTV_grid];
     
+    disp('Achored sweep successful! This is great!')
     disp('Successfully sweeped through zero tTV column!')
     
     if ifsave

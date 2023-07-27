@@ -1,5 +1,5 @@
 function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_step_factor, ...
-    n_tTV_steps, n_sTV_steps, max_sTV, perform_initial_sweep, tTV_anchor, tTV_low, tTV_high, niter, ...
+    n_tTV_steps, n_sTV_steps, max_sTV, perform_initial_tTV_sweep, tTV_anchor, tTV_low, tTV_high, niter, ...
     ifsave, ifGPU, path)
     % Edit that needs to be made: number of sweeps in temporal direction
     % needs to be a customizable parameter
@@ -10,13 +10,13 @@ function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, 
     
     arguments
         narm_frame
-        tTV_step_factor = 2.5 % each step will be x5 farther from the anchor
+        tTV_step_factor = 5 % each step will be x5 farther from the anchor
         sTV_step_factor = 5
         n_tTV_steps = 4
-        n_sTV_steps = 6
+        n_sTV_steps = 5
         max_sTV = 0.05
-        perform_initial_sweep = 0
-        tTV_anchor = 0.04
+        perform_initial_tTV_sweep = 0
+        tTV_anchor = 0.02
         tTV_low = 1e-7
         tTV_high = 1e-1
         niter = 75
@@ -61,7 +61,7 @@ function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, 
     %% sweep through initial tTVs
     initial_sTV_sweep = 1e-5;
     
-    if perform_initial_sweep == 1
+    if perform_initial_tTV_sweep == 1
         for i = 1:n_tTV_iter
             [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, kspace_info, para] = dual_te_STCR_wrapper(narm_frame, initial_tTV_sweep(i), initial_sTV_sweep, niter, 0, ifGPU, 0);
             if ifsave
@@ -82,10 +82,10 @@ function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, 
         play_mri_video(29, 20/narm_frame, initial_sweep)
         tTV_anchor = input('Enter the best tTV: ');
         clear initial_sweep
-    elseif perform_initial_sweep == 0
+    elseif perform_initial_tTV_sweep == 0
         disp(['Using ', num2str(tTV_anchor), ' as the tTV_anchor...'])
     else
-        error('perform_initial_sweep can either be set to true or false')
+        error('perform_initial_tTV_sweep can either be set to true or false')
     end
     
     %% sweep though anchor tTV

@@ -9,12 +9,12 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     
     arguments
         narm_frame
-        tTV_step_factor = 2.5 % each step will be x10 farther from the anchor
+        tTV_step_factor = 5 % each step will be x10 farther from the anchor
         sTV_step_factor = 5
-        tTV_anchor = 0.04
         n_tTV_steps = 4
-        n_sTV_steps = 6
+        n_sTV_steps = 5
         max_sTV = 0.05
+        tTV_anchor = 0.02
         ifsave = 1
         path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat'
     end

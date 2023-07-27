@@ -50,7 +50,7 @@ function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, 
         mkdir ./recon_data/parameter_sweep
     end
     
-    %% make a tTV sweep vector
+    %% make the initial tTV sweep vector
     n_tTV_iter = log10(tTV_high/tTV_low) + 1;
     initial_tTV_sweep = zeros(1, n_tTV_iter);
     

@@ -1,5 +1,5 @@
 function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV_step_factor, sTV_step_factor, ...
-    tTV_anchor, n_tTV_steps, n_sTV_steps, ifsave, path)
+    tTV_anchor, n_tTV_steps, n_sTV_steps, max_sTV, ifsave, path)
     
     % FUNCTION MUST BE RENAMED AND RELOCATED
     % 
@@ -10,10 +10,11 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     arguments
         narm_frame
         tTV_step_factor = 2.5 % each step will be x10 farther from the anchor
-        sTV_step_factor = 10
-        tTV_anchor = 1e-1
-        n_tTV_steps = 5
-        n_sTV_steps = 4
+        sTV_step_factor = 5
+        tTV_anchor = 0.04
+        n_tTV_steps = 4
+        n_sTV_steps = 6
+        max_sTV = 0.05
         ifsave = 1
         path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat'
     end
@@ -53,7 +54,7 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     
     sTV_sweep = zeros(1,n_sTV_steps);
     for i = 1:n_sTV_steps
-        sTV_sweep(i) = 1*sTV_step_factor^(-n_sTV_steps)*sTV_step_factor^(i-1);
+        sTV_sweep(i) = max_sTV*sTV_step_factor^(-i+1);
     end
     
     tTV_sweep = [0, tTV_sweep]; % add zero column

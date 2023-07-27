@@ -1,5 +1,5 @@
 function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, tTV_step_factor, sTV_step_factor, ...
-    n_tTV_steps, n_sTV_steps, perform_initial_sweep, tTV_anchor, tTV_low, tTV_high, niter, ...,
+    n_tTV_steps, n_sTV_steps, max_sTV, perform_initial_sweep, tTV_anchor, tTV_low, tTV_high, niter, ...
     ifsave, ifGPU, path)
     % Edit that needs to be made: number of sweeps in temporal direction
     % needs to be a customizable parameter
@@ -11,11 +11,12 @@ function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, 
     arguments
         narm_frame
         tTV_step_factor = 2.5 % each step will be x5 farther from the anchor
-        sTV_step_factor = 10
-        n_tTV_steps = 5
-        n_sTV_steps = 4
+        sTV_step_factor = 5
+        n_tTV_steps = 4
+        n_sTV_steps = 6
+        max_sTV = 0.05
         perform_initial_sweep = 0
-        tTV_anchor = 1e-1
+        tTV_anchor = 0.04
         tTV_low = 1e-7
         tTV_high = 1e-1
         niter = 75
@@ -98,13 +99,11 @@ function [sweep, tTV_grid, sTV_grid] = dual_te_STCR_parameter_sweep(narm_frame, 
     
     sTV_sweep = zeros(1,n_sTV_steps);
     for i = 1:n_sTV_steps
-        sTV_sweep(i) = 1*sTV_step_factor^(-n_sTV_steps)*sTV_step_factor^(i-1);
+        sTV_sweep(i) = max_sTV*sTV_step_factor^(-i+1);
     end
     
     tTV_sweep = [0, tTV_sweep]; % add zero column
     sTV_sweep = [0, sTV_sweep]; % add zero column
-    disp(tTV_sweep)
-    disp(sTV_sweep)
     
     for i = 1:length(tTV_sweep)
         for j = 1:length(sTV_sweep)

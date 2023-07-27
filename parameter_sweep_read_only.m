@@ -1,5 +1,5 @@
 function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV_step_factor, sTV_step_factor, ...
-    tTV_anchor, n_tTV_steps, n_sTV_steps, max_sTV, ifsave, ifvideo, path)
+    n_tTV_steps, n_sTV_steps, max_sTV, tTV_anchor, ifsave, ifvideo, path)
     
     % FUNCTION MUST BE RENAMED AND RELOCATED
     % 
@@ -158,7 +158,7 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     disp('Successfully sweeped through zero tTV column!')
     
     if ifsave
-        save(['sweep_',num2str(narm_frame),'_arm'],'sweep','tTV_grid','sTV_grid')
+        %save(['sweep_',num2str(narm_frame),'_arm'],'sweep','tTV_grid','sTV_grid')
         disp('Successfully saved the sweep variable!')
         if ifvideo
             play_mri_video('all', 2*10/narm_frame, sweep, 1, 0, 1, 'mri_video_automatic')

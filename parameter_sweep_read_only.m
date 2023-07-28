@@ -16,7 +16,7 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
         max_sTV = 0.05
         tTV_anchor = 0.02
         ifsave = 1
-        ifvideo = 1
+        ifvideo = 0
         path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat'
     end
     

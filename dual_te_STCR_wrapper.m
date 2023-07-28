@@ -12,7 +12,7 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
         niter
         ifsave = 0
         ifGPU = 1
-        ifplot = 1;
+        ifplot = 1
         path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat'
     end
     

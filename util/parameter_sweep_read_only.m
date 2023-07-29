@@ -35,11 +35,11 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     end
 
     %% add paths
-    addpath ./util/mfile/functions/
-    addpath ./util/mfile/registrtation/
-    addpath ./util/mfile/quantification/
-    addpath ./util/mfile/vdspiral/
-    addpath ./util/
+    addpath ./mfile/functions/
+    addpath ./mfile/registrtation/
+    addpath ./mfile/quantification/
+    addpath ./mfile/vdspiral/
+    addpath ./functions
     
     if ~isfolder('./recon_data/parameter_sweep')
         error("You don't have any data to read.")
@@ -158,8 +158,9 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     disp('Successfully sweeped through zero tTV column!')
     
     if ifsave
-        %save(['sweep_',num2str(narm_frame),'_arm'],'sweep','tTV_grid','sTV_grid')
+        save(['./figures/sweep_',num2str(narm_frame),'_arm'],'sweep','tTV_grid','sTV_grid')
         disp('Successfully saved the sweep variable!')
+        disp("Note: the sweep variable is saved in the ./figures/")
         if ifvideo
             play_mri_video('all', 2*10/narm_frame, sweep, 1, 0, 1, 'mri_video_automatic')
         end

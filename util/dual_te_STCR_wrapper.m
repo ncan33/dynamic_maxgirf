@@ -17,11 +17,11 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     end
     
     %% add ismrmd and mfile path
-    addpath ./util/mfile/functions/
-    addpath ./util/mfile/registrtation/
-    addpath ./util/mfile/quantification/
-    addpath ./util/mfile/vdspiral/
-    addpath ./util/
+    addpath ./mfile/functions/
+    addpath ./mfile/registrtation/
+    addpath ./mfile/quantification/
+    addpath ./mfile/vdspiral/
+    addpath ./functions
 
     ccc %check that setup.m is run
     disp(['Loading data for tTV = ', num2str(tTV), ' and sTV = ', num2str(sTV)])

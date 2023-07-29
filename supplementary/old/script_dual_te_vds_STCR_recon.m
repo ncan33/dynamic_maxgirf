@@ -3,9 +3,13 @@
 % recon_dual_te.m from Ye's directory and speech_open_dataset_reconstruction.m
 % from github.com/usc-mrel/usc_speech_mri
 
-%% add ismrmd and mfile path
-addpath /server/home/ncan/ismrmrd
-addpath ./util/
+%% add path
+if isfolder('../old')
+    run('../../dynamic_maxgirf_setup.m')
+elseif isfolder('./supplementary')
+    run('dynamic_maxgirf_setup.m')
+end
+
 
 ccc %check that setup.m is run
 if ~isfolder('./recon_data')

@@ -158,7 +158,7 @@ function [sweep, tTV_grid, sTV_grid] = parameter_sweep_read_only(narm_frame, tTV
     disp('Successfully sweeped through zero tTV column!')
     
     if ifsave
-        save(['./figures/sweep_',num2str(narm_frame),'_arm'],'sweep','tTV_grid','sTV_grid')
+        save(['.recon_data/sweep_',num2str(narm_frame),'_arm'],'sweep','tTV_grid','sTV_grid')
         disp('Successfully saved the sweep variable!')
         disp("Note: the sweep variable is saved in the ./figures/")
         if ifvideo

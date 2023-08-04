@@ -10,7 +10,7 @@ function PSF_visualizer(narm_frames, kspace_info, fov_factor, ifsave)
     arguments
         narm_frames = [10,5,2]
         kspace_info = []
-        fov_factor = 1
+        fov_factor = 2
         ifsave = 1
     end
     

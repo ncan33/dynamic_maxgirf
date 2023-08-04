@@ -1,4 +1,4 @@
-function [PSF, PSF_cropped] = RTHawk_spiral_PSF_visualizer(narm_frame, kspace_info, fov_factor, ifsave)
+function [PSF, PSF_cropped, mainlobe_line, para] = RTHawk_spiral_PSF(narm_frame, kspace_info, fov_factor, zoom_amount)
     % Generate PSF of the spiral trajectory for RTHawk data for a user
     % defined number of arms per frame. Uses NUFFT.
     % 
@@ -11,7 +11,7 @@ function [PSF, PSF_cropped] = RTHawk_spiral_PSF_visualizer(narm_frame, kspace_in
         narm_frame
         kspace_info = []
         fov_factor = 1
-        ifsave = 0
+        zoom_amount = 10
     end
     
     if isempty(kspace_info)
@@ -88,37 +88,12 @@ function [PSF, PSF_cropped] = RTHawk_spiral_PSF_visualizer(narm_frame, kspace_in
     center_pixel_mag = abs(last_frame(sz/2+1, sz/2+1));
     PSF = PSF / center_pixel_mag;
     
-    %% plot PSF image and save it
-    
-    % declare axes
-    axis_data_high = (para.Recon.FOV * 10 / 2) * fov_factor; % upper bound for new XTick vector
-    axis_data_low = - axis_data_high; % lower bound for new XTick vector
-    axis_data = round(linspace(axis_data_low, axis_data_high, 200)); % new XTickLabel vector
-    % plot
-    imagesc('XData', axis_data, 'YData', axis_data, 'CData', log10(abs(PSF(:,:,end))))
-    caxis([-5.5 0])
-    xlabel('X (cm)'); ylabel('Y (cm)'); axis image; colorbar; colormap gray
-    title(['Log-scale PSF for ', num2str(narm_frame), ' arms per frame'])
-    if ifsave
-        saveas(gcf, ['./figures/', num2str(narm_frame), 'arm_logscale_PSF.png'])
-    end
-    
-    % zoom into mainlobe
+    %% calculate the zoomed in PSF
     sz = size(PSF, 1);
-    zoom_amount = 10; % number of pixels
     PSF_cropped = PSF((sz / 2)-zoom_amount+1:(sz / 2)+zoom_amount+1, ...
         (sz / 2)-zoom_amount+1:(sz / 2)+zoom_amount+1, :);
-    % declare axes
-    axis_data_high = (para.Recon.FOV * 100 / 2) * fov_factor * size(PSF_cropped, 1) / sz; % upper bound for new XTick vector
-    axis_data_low = - axis_data_high; % lower bound for new XTick vector
-    axis_data = round(linspace(axis_data_low, axis_data_high, 50)); % new XTickLabel vector
-    % plot
-    imagesc(axis_data, axis_data, log10(abs(PSF_cropped(:,:,end))));
-    caxis([-2 0])
-    xlabel('X (mm)'); ylabel('Y (mm)'); axis image; colorbar; colormap gray
-    title(['Mainlobe of PSF for ', num2str(narm_frame), ' arms per frame (log-scale)'])
-    if ifsave
-        saveas(gcf, ['./figures/', num2str(narm_frame), 'arm_mainlobe_of_PSF.png'])
-    end
     
+    %% calculate mainlobe line
+    sz = size(PSF_cropped, 1);
+    mainlobe_line = squeeze(PSF_cropped(floor(sz/2)+1, :, :)); % take the mainlobe
 end

@@ -1,4 +1,4 @@
-function PSF = RTHawk_spiral_PSF_visualizer(narm_frame, kspace_info)
+function [PSF, PSF_cropped] = RTHawk_spiral_PSF_visualizer(narm_frame, kspace_info, fov_factor, ifsave)
     % Generate PSF of the spiral trajectory for RTHawk data for a user
     % defined number of arms per frame. Uses NUFFT.
     % 
@@ -9,13 +9,16 @@ function PSF = RTHawk_spiral_PSF_visualizer(narm_frame, kspace_info)
     % 'case' rather than a built-in functionality.
     arguments
         narm_frame
-        kspace_info = 'empty'
+        kspace_info = []
+        fov_factor = 1
+        ifsave = 0
     end
     
-    if kspace_info == 'empty'
-       kspace_info = load('.supplementary/kspace_info.mat').kspace_info;
+    if isempty(kspace_info)
+        load('supplementary/kspace_info.mat', 'kspace_info');
+    else
+        disp('Using custom kspace_info input by user...')
     end
-    
     %% add paths
     run('dynamic_maxgirf_setup.m')
     
@@ -33,8 +36,9 @@ function PSF = RTHawk_spiral_PSF_visualizer(narm_frame, kspace_info)
     
     res = [kspace_info.user_ResolutionX, kspace_info.user_ResolutionY];
     fov = [kspace_info.user_FieldOfViewX, kspace_info.user_FieldOfViewY];
-    matrix_size_keep    = round(fov ./ res / 2) * 2;
-    matrix_size         = round(matrix_size_keep * 2 / 2) * 1.5;
+    
+    matrix_size_keep = round(fov ./ res / 2) * 2;
+    matrix_size = round(matrix_size_keep * 2 / 2) * fov_factor;
     para.Recon.matrix_size = matrix_size;
     para.Recon.FOV = fov(1)/100; % units of decimeter for some reason
     
@@ -78,12 +82,43 @@ function PSF = RTHawk_spiral_PSF_visualizer(narm_frame, kspace_info)
     
     disp('NUFFT complete.')
     
-    %% plot it and save it
-    imagesc(abs(PSF(:,:,end))); axis image; colorbar; colormap gray
-    title(['PSF for ', num2str(narm_frame), ' arms per frame'])
-    saveas(gcf, ['./figures/', num2str(narm_frame), 'arm_PSF.png'])
+    %% normalize the PSF
+    last_frame = PSF(:, :, end);
+    sz = size(last_frame, 1);
+    center_pixel_mag = abs(last_frame(sz/2+1, sz/2+1));
+    PSF = PSF / center_pixel_mag;
     
-    imagesc(log(abs(PSF(:,:,end)))); axis image; colorbar; colormap gray
+    %% plot PSF image and save it
+    
+    % declare axes
+    axis_data_high = (para.Recon.FOV * 10 / 2) * fov_factor; % upper bound for new XTick vector
+    axis_data_low = - axis_data_high; % lower bound for new XTick vector
+    axis_data = round(linspace(axis_data_low, axis_data_high, 200)); % new XTickLabel vector
+    % plot
+    imagesc('XData', axis_data, 'YData', axis_data, 'CData', log10(abs(PSF(:,:,end))))
+    caxis([-5.5 0])
+    xlabel('X (cm)'); ylabel('Y (cm)'); axis image; colorbar; colormap gray
     title(['Log-scale PSF for ', num2str(narm_frame), ' arms per frame'])
-    saveas(gcf, ['./figures/', num2str(narm_frame), 'arm_logscale_PSF.png'])
+    if ifsave
+        saveas(gcf, ['./figures/', num2str(narm_frame), 'arm_logscale_PSF.png'])
+    end
+    
+    % zoom into mainlobe
+    sz = size(PSF, 1);
+    zoom_amount = 10; % number of pixels
+    PSF_cropped = PSF((sz / 2)-zoom_amount+1:(sz / 2)+zoom_amount+1, ...
+        (sz / 2)-zoom_amount+1:(sz / 2)+zoom_amount+1, :);
+    % declare axes
+    axis_data_high = (para.Recon.FOV * 100 / 2) * fov_factor * size(PSF_cropped, 1) / sz; % upper bound for new XTick vector
+    axis_data_low = - axis_data_high; % lower bound for new XTick vector
+    axis_data = round(linspace(axis_data_low, axis_data_high, 50)); % new XTickLabel vector
+    % plot
+    imagesc(axis_data, axis_data, log10(abs(PSF_cropped(:,:,end))));
+    caxis([-2 0])
+    xlabel('X (mm)'); ylabel('Y (mm)'); axis image; colorbar; colormap gray
+    title(['Mainlobe of PSF for ', num2str(narm_frame), ' arms per frame (log-scale)'])
+    if ifsave
+        saveas(gcf, ['./figures/', num2str(narm_frame), 'arm_mainlobe_of_PSF.png'])
+    end
+    
 end

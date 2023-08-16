@@ -15,9 +15,9 @@ addpath(genpath(src_directory));
 addpath(genpath(ismrmrd_directory));
 
 %% Define data directory
-ismrmrd_noise_path = '/scratch/nlee/NHLBI/data/20201102_NV_brain/noise/noise_meas_MID00275_FID03658_se_spiral_1102_ax_s24.h5';
-ismrmrd_data_path = '/scratch/nlee/NHLBI/data/20201102_NV_brain/h5/meas_MID00275_FID03658_se_spiral_1102_ax_s24.h5';
-siemens_dat_path = '/scratch/nlee/NHLBI/data/20201102_NV_brain/meas_MID00275_FID03658_se_spiral_1102_ax_s24.dat';
+ismrmrd_noise_path = '/server/sdata/ncan/NHLBI/20201102_NV_brain/noise/noise_meas_MID00275_FID03658_se_spiral_1102_ax_s24.h5';
+ismrmrd_data_path = '/server/sdata/ncan/NHLBI/20201102_NV_brain/h5/meas_MID00275_FID03658_se_spiral_1102_ax_s24.h5';
+siemens_dat_path = '/server/sdata/ncan/NHLBI/20201102_NV_brain/meas_MID00275_FID03658_se_spiral_1102_ax_s24.dat';
 B0map_fullpath = '/server/home/ncan/GitHub/lowfield_maxgirf/B0map_nlinv_min1.0e-06_axial.mat';
 
 %% Set reconstruction options

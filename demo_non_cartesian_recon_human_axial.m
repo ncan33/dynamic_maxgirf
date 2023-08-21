@@ -11,9 +11,14 @@ src_directory = '/server/home/ncan/GitHub/lowfield_maxgirf';
 ismrmrd_directory = '/server/home/ncan/ismrmrd';
 
 %% Add source directories to search path
+rmpath('./util/functions')
+rmpath('./util/mfile/vdspiral')
+rmpath('./util/mfile/quantification')
+rmpath('./util/mfile/registrtation')
+rmpath('./util/mfile/functions')
+
 addpath(genpath(src_directory));
 addpath(genpath(ismrmrd_directory));
-run dynamic_maxgirf_setup.m
 
 %% Define data directory
 ismrmrd_noise_path = '/server/sdata/ncan/NHLBI/20201102_NV_brain/noise/noise_meas_MID00275_FID03658_se_spiral_1102_ax_s24.h5';

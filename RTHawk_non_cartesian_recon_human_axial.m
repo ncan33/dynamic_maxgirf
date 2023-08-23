@@ -26,6 +26,7 @@ B0map_fullpath = '/server/home/ncan/GitHub/dynamic_maxgirf/B0map_zeros_420_420_5
 %% Set reconstruction options
 % "phase_sign" and "read_sign" can be determined only from Siemens raw data 
 % format now until the ISMRMRD format includes these as part of its header
+user_opts.narm_frame           = 5;                % number of arms per frame
 user_opts.vds_factor           = 75;
 user_opts.discard_pre          = 20;
 user_opts.discard_post         = 20;

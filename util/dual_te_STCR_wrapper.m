@@ -89,8 +89,8 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     narm_total = min(size(kspace_echo_1, 2), size(kspace_echo_2, 2)); % narm after splitting kspace
 
     %% orgnize the data to frames
-    nframes = floor(narm_total / narm_frame); % I don't know if this is necessary
-    narm_total = nframes * narm_frame; % I don't know if this is necessary
+    nframes = floor(narm_total / narm_frame);
+    narm_total = nframes * narm_frame;
 
     kspace_echo_1(:, narm_total + 1 : end, :) = []; % discard excess kspace
     kspace_echo_2(:, narm_total + 1 : end, :) = []; % discard excess kspace

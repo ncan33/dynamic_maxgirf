@@ -1,7 +1,7 @@
 % demo_non_cartesian_recon_human_axial.m
-% Written by Nam Gyun Lee
-% Email: namgyunl@usc.edu, ggang56@gmail.com (preferred)
-% Started: 01/16/2022, Last modified: 02/01/2022
+% Written by Nejat Can
+% Email: ncan@usc.edu
+% Started: 08/21/2023
 
 %% Clean slate
 close all; clear all; clc;
@@ -18,24 +18,19 @@ rmpath('./util/mfile/registrtation')
 rmpath('./util/mfile/functions')
 
 addpath(genpath(src_directory));
-addpath(genpath(ismrmrd_directory));
 
 %% Define data directory
-ismrmrd_noise_path = '/server/sdata/ncan/NHLBI/20201102_NV_brain/noise/noise_meas_MID00275_FID03658_se_spiral_1102_ax_s24.h5';
-ismrmrd_data_path = '/server/sdata/ncan/NHLBI/20201102_NV_brain/h5/meas_MID00275_FID03658_se_spiral_1102_ax_s24.h5';
-siemens_dat_path = '/server/sdata/ncan/NHLBI/20201102_NV_brain/meas_MID00275_FID03658_se_spiral_1102_ax_s24.dat';
-B0map_fullpath = '/server/home/ncan/GitHub/lowfield_maxgirf/B0map_nlinv_min1.0e-06_axial.mat';
+data_path = '/server/sdata/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat';
+B0map_fullpath = '/server/home/ncan/GitHub/dynamic_maxgirf/B0map_zeros_420_420_59.mat';
 
 %% Set reconstruction options
 % "phase_sign" and "read_sign" can be determined only from Siemens raw data 
 % format now until the ISMRMRD format includes these as part of its header
-user_opts.phase_sign           =  1;
-user_opts.read_sign            = -1;
 user_opts.vds_factor           = 75;
 user_opts.discard_pre          = 20;
 user_opts.discard_post         = 20;
-user_opts.N1                   = 320;              % reconstruction matrix size along the row direction
-user_opts.N2                   = 320;              % reconstruction matrix size along the column direction
+user_opts.N1                   = 420;              % reconstruction matrix size along the row direction
+user_opts.N2                   = 420;              % reconstruction matrix size along the column direction
 user_opts.max_iterations       = 45;               % maximum number of LSQR iterations
 user_opts.tol                  = 1e-5;             % LSQR tolerance
 user_opts.static_B0_correction = 1;                % static off-resonance correction: 1=yes, 0=no
@@ -69,14 +64,14 @@ save(sprintf('%s_cpr', output_filename), 'im_cpr', 'header_cpr', 'r_dcs_cpr', 'o
 save(sprintf('%s_maxgirf', output_filename), 'im_maxgirf', 'header_maxgirf', 'r_dcs_maxgirf', 'output_maxgirf', 'user_opts', '-v7.3');
 end
 
+%% Perform NUFFT reconstruction (single-GPU)
+[im_nufft_gpu, header_nufft, r_dcs_nufft] = RTHawk_gridding_recon_gpu(data_path, user_opts);
+save(sprintf('%s_nufft_gpu', output_filename), 'im_nufft_gpu', 'header_nufft', 'r_dcs_nufft', 'user_opts', '-v7.3');
+
+if 0
 %% Perform CG-based MaxGIRF reconstruction (single-GPU)
 [im_maxgirf_gpu, header_maxgirf, r_dcs_maxgirf, output_maxgirf] = siemens_maxgirf_cg_recon_single_gpu(ismrmrd_noise_path, ismrmrd_data_path, siemens_dat_path, B0map_nlinv, user_opts);
 save(sprintf('%s_maxgirf_single_gpu_supp%d_iter%d', output_filename, user_opts.support_constraint, user_opts.max_iterations), 'im_maxgirf_gpu', 'header_maxgirf', 'r_dcs_maxgirf', 'output_maxgirf', 'user_opts', '-v7.3');
-
-if 1
-%% Perform NUFFT reconstruction (single-GPU)
-[im_nufft_gpu, header_nufft, r_dcs_nufft] = siemens_gridding_recon_gpu(ismrmrd_noise_path, ismrmrd_data_path, siemens_dat_path, user_opts);
-save(sprintf('%s_nufft_gpu', output_filename), 'im_nufft_gpu', 'header_nufft', 'r_dcs_nufft', 'user_opts', '-v7.3');
 
 %% Perform King's method reconstruction
 [im_king, header_king, r_dcs_king] = siemens_king_method_recon(ismrmrd_noise_path, ismrmrd_data_path, siemens_dat_path, user_opts);

@@ -20,7 +20,7 @@ rmpath('./util/mfile/functions')
 addpath(genpath(src_directory));
 
 %% Define data directory
-data_path = '/server/sdata/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat';
+data_path = '/server/sdata/ncan/mri_data/disc/lung/vol0457_20221021/raw_hawk/usc_disc_yt_2022_10_21_133643_dual-te_dynamic.mat';
 B0map_fullpath = '/server/home/ncan/GitHub/dynamic_maxgirf/B0map_zeros_420_420_59.mat';
 
 %% Set reconstruction options

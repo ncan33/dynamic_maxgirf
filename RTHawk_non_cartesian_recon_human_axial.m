@@ -39,7 +39,7 @@ user_opts.L                    = 5;                % rank of the SVD approximati
 user_opts.support_constraint   = 1;                % sse a support constraint using a voxel mask created with ESPIRiT
 
 %% Define an output filename
-[filepath,filename,ext] = fileparts(ismrmrd_data_path);
+[filepath,filename,ext] = fileparts(data_path);
 output_filename = sprintf('%s_%dx%d', filename, user_opts.N1, user_opts.N2);
 
 %% Load a static off-resonance map [Hz]

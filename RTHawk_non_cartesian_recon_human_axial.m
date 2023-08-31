@@ -28,13 +28,13 @@ B0map_fullpath = '/server/home/ncan/GitHub/dynamic_maxgirf/B0map_zeros_420_420_5
 % format now until the ISMRMRD format includes these as part of its header
 user_opts.narm_frame           = 10;               % number of arms per frame
 user_opts.vds_factor           = 75;
-user_opts.discard_pre          = 20;
-user_opts.discard_post         = 20;
+user_opts.discard_pre          = 0;
+user_opts.discard_post         = 0;
 user_opts.N1                   = 420;              % reconstruction matrix size along the row direction
 user_opts.N2                   = 420;              % reconstruction matrix size along the column direction
 user_opts.max_iterations       = 45;               % maximum number of LSQR iterations
 user_opts.tol                  = 1e-5;             % LSQR tolerance
-user_opts.static_B0_correction = 1;                % static off-resonance correction: 1=yes, 0=no
+user_opts.static_B0_correction = 0;                % static off-resonance correction: 1=yes, 0=no
 user_opts.Lmax                 = 20;               % maximum rank of the SVD approximation of a higher-order encoding matrix
 user_opts.L                    = 5;                % rank of the SVD approximation of a higher-order encoding matrix
 user_opts.support_constraint   = 1;                % sse a support constraint using a voxel mask created with ESPIRiT
@@ -70,7 +70,7 @@ end
 %save(sprintf('%s_nufft_gpu', output_filename), 'im_nufft_gpu', 'header_nufft', 'r_dcs_nufft', 'user_opts', '-v7.3');
 
 %% Perform CG-based MaxGIRF reconstruction (single-GPU)
-[im_maxgirf_gpu, header_maxgirf, r_dcs_maxgirf, output_maxgirf] = RTHawk_maxgirf_cg_recon_single_gpu(data_path, B0map_nlinv, user_opts);
+[im_maxgirf_gpu, header_maxgirf, r_dcs_maxgirf] = RTHawk_maxgirf_cg_recon_single_gpu(data_path, B0map_nlinv, user_opts);
 save(sprintf('%s_maxgirf_single_gpu_supp%d_iter%d', output_filename, user_opts.support_constraint, user_opts.max_iterations), 'im_maxgirf_gpu', 'header_maxgirf', 'r_dcs_maxgirf', 'output_maxgirf', 'user_opts', '-v7.3');
 
 if 0

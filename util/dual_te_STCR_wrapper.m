@@ -58,8 +58,8 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
                              % and when echo_idx == 2, then echo_2
 
     %% size
-    nsample = size(kspace, 1); % number of samples
-    ncoil = size(kspace, 3); % number of coils
+    nsample = kspace_info.extent(1); % number of samples
+    ncoil = kspace_info.extent(2); % number of coils
 
     %% set reconstruction parameters
     para.Recon.narm = narm_frame; % number of spiral arms per frame
@@ -86,7 +86,7 @@ function [im_echo_1, im_echo_2, NUFFT_im_echo_1, NUFFT_im_echo_2, ...
     kspace_echo_2 = kspace(:, echo_idx == 2, :); % raw kspace data for echo 2
     %clear kspace
 
-    narm_total = min(size(kspace_echo_1, 2), size(kspace_echo_2, 2)); % narm after splitting kspace
+    narm_total = min(size(kspace_echo_1, 2), size(kspace_echo_2, 2)); % total number of interleaves (time-dependent) after splitting kspace
 
     %% orgnize the data to frames
     nframes = floor(narm_total / narm_frame);
